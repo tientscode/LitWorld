@@ -1,0 +1,32 @@
+
+.truyen-item img {
+    max-width: 100%;
+}
+
+.truyen-title {
+    font-size: 1.25rem;
+}
+
+.truyen-info {
+    font-size: 0.9rem;
+    color: gray;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.tag-list a {
+    margin: 0 5px;
+    font-size: 0.9rem;
+}
+.full-label {
+    width: 34px;
+    height: 50px;
+    position: absolute;
+    display: block;
+    margin: 0 0 0 -7px;
+    z-index: 1;
+    background: transparent url(https://static.8cache.com/img/full-label.png) no-repeat
+    /*https://upanh.tv/image/2JzAIP*/
+}

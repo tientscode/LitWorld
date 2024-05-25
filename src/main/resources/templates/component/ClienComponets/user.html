@@ -1,0 +1,28 @@
+<div th:fragment="userinformation">
+    <div class="user-card">
+        <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
+        <form method="post" action="/update-profile" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Hình ảnh</label>
+                <input type="file" class="form-control-file" id="image" name="image">
+            </div>
+            <div class="form-group">
+                <label for="username">Account</label>
+                <input type="text" class="form-control" id="account" name="account" readonly>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="account">Name</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="/component/ClienComponets/head :: head"></head>
+<body>
+
+<div th:replace="/component/ClienComponets/nav :: nav"></div>
+<div class="container mt-4">
+<!--    <h2 class="mb-3">Truyện Hot</h2>-->
+<!--    <div class="row">-->
+<!--        <div class="col-md-2 col-sm-4 col-6 mb-4">-->
+<!--            <div class="truyen-item">-->
+<!--                <img src="link_to_image" alt="Người Tìm Xác">-->
+<!--                <div class="truyen-title">Người Tìm Xác</div>-->
+<!--                <div class="truyen-info">Tác giả: A</div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; Thêm các mục truyện hot khác ở đây &ndash;&gt;-->
+<!--    </div>-->
+    <div th:replace="/component/ClienComponets/hottop :: top"></div>
+<!--    <h2 class="mb-3">Truyện Mới Cập Nhật</h2>-->
+<!--    <table class="table table-striped">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th>Tên Truyện</th>-->
+<!--            <th>Thể Loại</th>-->
+<!--            <th>Chương</th>-->
+<!--            <th>Thời Gian</th>-->
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr>-->
+<!--            <td><a href="#">Phật Hệ Mau Xuyên</a></td>-->
+<!--            <td>Ngôn Tình, Xuyên Không</td>-->
+<!--            <td>123</td>-->
+<!--            <td>34 phút trước</td>-->
+<!--        </tr>-->
+<!--        &lt;!&ndash; Thêm các truyện mới cập nhật khác ở đây &ndash;&gt;-->
+<!--        </tbody>-->
+<!--    </table>-->
+
+
+<!--    <div th:fragment="list">-->
+<!--        <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-2 col-sm-4 col-6 mb-4">-->
+<!--                <div class="truyen-item">-->
+<!--                    <img src="https://cdn.truyenfull.com/medias/covers/39/39046-phat-he-mau-xuyen_cover_large.jpg"-->
+<!--                         alt="Phật Hệ Mau Xuyên">-->
+<!--                    <div class="tree-title">Phật Hệ Mau Xuyên</div>-->
+<!--                    <div class="tree-info">123 chương</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Thêm các mục truyện đã hoàn thành khác ở đây &ndash;&gt;-->
+<!--        </div>-->
+<!--    </div>-->
+    <div th:replace="/component/ClienComponets/list :: list"></div>
+</div>
+
+<div th:replace="/component/ClienComponets/footer :: footer"></div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
