@@ -6,6 +6,8 @@ import com.tscode.LitWorld.Dto.StoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/story")
 public class ResponseApiStory {
@@ -18,8 +20,8 @@ public class ResponseApiStory {
         return khaibaohamStory.addStory(storyDto);
     }
 
-//    @GetMapping("/list")
-//    public List<StoryClass> getListStory() {
-//        return khaibaohamStory.getlistStory();
-//    }
+    @GetMapping("/list")
+    public List<StoryClass> getListStory() {
+        return khaibaohamStory.getlistStory();
+    }
 }
