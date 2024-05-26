@@ -1,17 +1,16 @@
 <div th:fragment="list">
     <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
-    <div class="row">
+    <div class="row" th:each="story : ${liststory}">
         <div class="col-md-2 col-sm-4 col-6 mb-4">
             <div class="truyen-item">
-                <img src="/images/truyen1.jpg"
-                     alt="Phật Hệ Mau Xuyên">
-                <div class="tree-title">Phật Hệ Mau Xuyên</div>
-                <div class="tree-info">123 chương</div>
+                <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image">
+                <div class="tree-title" th:text="${story.name}"></div>
+                <!--
+                    Bạn có thể bỏ chú thích hoặc bổ sung dữ liệu nếu cần (ví dụ: số chương)
+                    <div class="tree-info">123 chương</div>
+                -->
             </div>
         </div>
         <!-- Thêm các mục truyện đã hoàn thành khác ở đây -->
     </div>
 </div>
-
-
-

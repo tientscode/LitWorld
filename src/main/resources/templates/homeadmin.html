@@ -120,7 +120,7 @@
                     <td th:text="${story.id}"></td>
                     <td th:text="${story.name}"></td>
                     <td>
-                        <img th:src="@{${story.image}}" alt="Ảnh Truyện" width="100"/>
+                        <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image" width="100"/>
                     </td>
                     <td th:text="${story.description}"></td>
                     <td>
