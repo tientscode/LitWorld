@@ -68,7 +68,6 @@ public class HomeClienController {
         // Thêm danh sách câu chuyện vào model
         List<StoryClass> list = querryStory.getlistStory();
         model.addAttribute("liststory", list);
-
         // Kiểm tra cookie và thêm thông tin người dùng nếu có
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {

@@ -2,6 +2,7 @@ package com.tscode.LitWorld.Controller.CLien;
 
 import com.tscode.LitWorld.Database.UserClass.UserClass;
 import com.tscode.LitWorld.Database.UserClass.khaibaohamUser;
+import com.tscode.LitWorld.Dto.SignUpDto;
 import com.tscode.LitWorld.Dto.UserClassDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,11 @@ public class ResponseApi {
     private khaibaohamUser khaibaohamUser;
 
 
-//    // api them nguoi dung
-//    @PostMapping("/admin/add")
-//    public UserClass adduser(@RequestBody SignUpDto signUpDto) {
-//        return khaibaohamUser.adduser(signUpDto);
-//    }
+    // api them nguoi dung
+    @PostMapping("/admin/add")
+    public UserClass adduser(@RequestBody SignUpDto signUpDto) {
+        return khaibaohamUser.adduser(signUpDto);
+    }
 
     @GetMapping("/admin/list")
     public List<UserClass> getAlClassUserList() {

@@ -1,7 +1,7 @@
 <div th:fragment="list">
     <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
-    <div class="row" th:each="story : ${liststory}">
-        <div class="col-md-2 col-sm-4 col-6 mb-4">
+    <div class="row">
+        <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${liststory}">
             <div class="truyen-item">
                 <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image">
                 <div class="tree-title" th:text="${story.name}"></div>

@@ -1,6 +1,11 @@
 
 .truyen-item img {
+        width: 164px;
+        height: 245px; /* Hoặc kích thước theo mong muốn */
+    max-height: 100%;
     max-width: 100%;
+
+
 }
 
 .truyen-title {
@@ -30,3 +35,4 @@
     background: transparent url(https://static.8cache.com/img/full-label.png) no-repeat
     /*https://upanh.tv/image/2JzAIP*/
 }
+

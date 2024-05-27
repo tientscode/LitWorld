@@ -14,6 +14,10 @@ public class UserClassDto {
     private String name;
     private String account;
     private String password;
+//    private String confirmPassword;
+    private String email;
 
 
+    public UserClassDto(String name, String account, String password) {
+    }
 }
