@@ -69,4 +69,9 @@ public class LoginController {
 //        }
 //    }
 
+    @RequestMapping("/check")
+    public String check(Model model) {
+        return "component/ClienComponets/user";
+    }
+
 }

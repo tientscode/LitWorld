@@ -7,10 +7,11 @@
         .nav-item:hover .dropdown-menu {
             display: block;
         }
+
     </style>
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">TSCODE</a>
+        <a class="navbar-brand" href="home">TSCODE</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,9 +43,12 @@
                 <span th:if="${user != null}" th:text="${user.name}"></span>
                 <span th:if="${user == null}">Tài Khoản</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${user != null}">
-                <a class="dropdown-item" href="/profile">Tài Khoản</a>
-                <a class="dropdown-item" href="/home/gio-hang">Giỏ Hàng</a>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${user != null}" >
+                <a class="dropdown-item" href="/home/user">Tài Khoản</a>
+                <a class="dropdown-item" href="/home/gio-hang">Giỏ Hàng
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+</span>
+
+                </a>
                 <a class="dropdown-item" href="/logout">Sign out</a>
             </div>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${user == null}">

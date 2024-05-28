@@ -47,18 +47,18 @@ public class HomeClienController {
         // Bất kỳ xử lý nào khác mà bạn muốn thêm vào trong phương thức `home`
 //        model.addAttribute("extra", "Any additional processing or attributes can be added here");
 
-        return "index";
+        return "component/ClienComponets/list";
     }
 
 
     @RequestMapping("/home/gio-hang")
     public String giohang(){
-        return "giohang";
+        return "component/ClienComponets/tutruyen";
     }
 
     @RequestMapping("/home/user")
     public String user(){
-        return "userupdate";
+        return "component/ClienComponets/user";
     }
 
 

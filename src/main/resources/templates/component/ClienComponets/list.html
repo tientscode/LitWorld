@@ -1,16 +1,32 @@
-<div th:fragment="list">
-    <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
-    <div class="row">
-        <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${liststory}">
-            <div class="truyen-item">
-                <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image">
-                <div class="tree-title" th:text="${story.name}"></div>
-                <!--
-                    Bạn có thể bỏ chú thích hoặc bổ sung dữ liệu nếu cần (ví dụ: số chương)
-                    <div class="tree-info">123 chương</div>
-                -->
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{user-layout}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<!--<script src="https://cdn.tailwindcss.com"></script>-->
+
+<body>
+<section>
+    <div layout:fragment="content">
+        <div th:replace="/component/ClienComponets/hottop :: top"></div>
+        <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
+        <div class="row">
+            <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${liststory}">
+                <div class="truyen-item">
+                    <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image">
+                    <div  class="tree-title" th:text="${story.name}"></div>
+                </div>
+                <button class="btn-outline-info" style="background-color: #f57224">Thêm vào giỏ hàng</button>
+<!--                <button>Chi Tiết</button>-->
             </div>
+            <!-- Thêm các mục truyện đã hoàn thành khác ở đây -->
         </div>
-        <!-- Thêm các mục truyện đã hoàn thành khác ở đây -->
     </div>
-</div>
+</section>
+</body>
+</html>

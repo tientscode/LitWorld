@@ -1,28 +1,51 @@
-<div th:fragment="userinformation">
-    <div class="user-card">
-        <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
-        <form method="post" action="/update-profile" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="image">Hình ảnh</label>
-                <input type="file" class="form-control-file" id="image" name="image">
-            </div>
-            <div class="form-group">
-                <label for="username">Account</label>
-                <input type="text" class="form-control" id="account" name="account" readonly>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mật khẩu</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="account">Name</label>
-                <input type="text" class="form-control" id="username" name="username" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>
-        </form>
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{user-layout}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<section>
+    <div layout:fragment="content">
+        <div class="user-card">
+            <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
+            <form method="post" action="/update-profile" enctype="multipart/form-data">
+                <div style="width: 20% !important;" class="form-group">
+                    <label for="image">Hình ảnh</label>
+                    <input type="file" class="form-control-file" id="image" name="image">
+                </div>
+                <div class="form-group">
+                    <label for="username">Account</label>
+                    <input th:value="${user.account}" type="text" class="form-control" id="account" name="account"
+                           readonly>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input th:value="${user.email}" type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <!--                <div class="form-group">-->
+                <!--                    <label for="password">Mật khẩu</label>-->
+                <!--                    <input type="password" class="form-control" id="password" name="password" required>-->
+                <!--                </div>-->
+                <div class="form-group">
+                    <label for="account">Name</label>
+                    <input th:value="${user.name}" type="text" class="form-control" id="username" name="username"
+                           required>
+                </div>
+                <!--                <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>-->
+
+                <button type="button"
+                        class="text-gray-900 bg-gradient-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                    Cập Nhật
+                </button>
+
+            </form>
+        </div>
     </div>
-</div>
+</section>
+</body>
+</html>

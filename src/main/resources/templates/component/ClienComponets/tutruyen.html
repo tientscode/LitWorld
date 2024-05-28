@@ -1,92 +1,107 @@
-<div th:fragment="tutruyen">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f0f2f5;
-    }
+<!doctype html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{user-layout}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<section>
+    <div layout:fragment="content">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f2f5;
+            }
 
-    .cart-container {
-      width: 80%;
-      margin: auto;
-      background-color: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }r
+            .cart-container {
+                width: 80%;
+                margin: auto;
+                background-color: white;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
 
-    .cart-title {
-      text-align: center;
-      margin: 20px 0;
-      color: #007bff;
-    }
+            .cart-title {
+                text-align: center;
+                margin: 20px 0;
+                color: #007bff;
+            }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px solid #ccc;
-      padding: 10px 0;
-      align-items: center;
-    }
+            .cart-item {
+                display: flex;
+                justify-content: space-between;
+                border-bottom: 1px solid #ccc;
+                padding: 10px 0;
+                align-items: center;
+            }
 
-    .cart-item img {
-      width: 50px;
-      height: 50px;
-    }
+            .cart-item img {
+                width: 50px;
+                height: 50px;
+            }
 
-    .cart-item-details {
-      flex: 2;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      text-align: center;
-    }
+            .cart-item-details {
+                flex: 2;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                text-align: center;
+            }
 
-    .cart-item-price, .cart-item-quantity, .cart-item-total {
-      flex: 1;
-    }
+            .cart-item-price, .cart-item-quantity, .cart-item-total {
+                flex: 1;
+            }
 
-    .cart-summary {
-      text-align: center;
-      margin: 20px 0;
-    }
+            .cart-summary {
+                text-align: center;
+                margin: 20px 0;
+            }
 
-    .cart-summary h2 {
-      color: #007bff;
-    }
+            .cart-summary h2 {
+                color: #007bff;
+            }
 
-    .checkout-button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 18px;
-    }
+            .checkout-button {
+                background-color: #28a745;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 18px;
+            }
 
-    .checkout-button:hover {
-      background-color: #218838;
-    }
-  </style>
+            .checkout-button:hover {
+                background-color: #218838;
+            }
+        </style>
 
-  <body >
-  <div class="cart-container" >
-    <h1 class="cart-title">Giỏ Hàng Của Bạn</h1>
-    <div class="cart-item">
-      <div><img src="image_link_here" alt="Sản Phẩm"></div>
-      <div class="cart-item-details">
-        <div class="cart-item-name">Tên Sản Phẩm</div>
-        <div class="cart-item-price">50.000đ</div>
-        <div class="cart-item-quantity">1</div>
-        <div class="cart-item-total">50.000đ</div>
-      </div>
+        <body>
+        <div class="cart-container">
+            <h1 class="cart-title">Giỏ Hàng Của Bạn</h1>
+            <div class="cart-item">
+                <div><img src="image_link_here" alt="Sản Phẩm"></div>
+                <div class="cart-item-details">
+                    <div class="cart-item-name">Tên Sản Phẩm</div>
+                    <div class="cart-item-price">50.000đ</div>
+                    <div class="cart-item-quantity">1</div>
+                    <div class="cart-item-total">50.000đ</div>
+                </div>
+            </div>
+            <!-- Thêm nhiều sản phẩm như trên nếu cần -->
+            <div class="cart-summary">
+                <h2>Tổng Cộng: 50.000đ</h2>
+                <button class="checkout-button">Thanh Toán</button>
+            </div>
+        </div>
+        </body>
+
     </div>
-    <!-- Thêm nhiều sản phẩm như trên nếu cần -->
-    <div class="cart-summary">
-      <h2>Tổng Cộng: 50.000đ</h2>
-      <button class="checkout-button">Thanh Toán</button>
-    </div>
-  </div>
-  </body>
-
-</div>
+</section>
+</body>
+</html>
