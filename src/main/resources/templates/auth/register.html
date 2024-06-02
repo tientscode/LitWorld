@@ -65,7 +65,9 @@
 
         <p class="text-center">hoặc:</p>
 
+
         <!-- Name input -->
+        <div th:text="${message}" class="error"></div>
         <div data-mdb-input-init class="form-outline mb-4">
           <label>Tên Hiển Thị:</label>
           <input type="text" th:field="*{name}"/>
@@ -89,16 +91,16 @@
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-4">
           <label>Mật Khẩu:</label>
-          <input type="text" th:field="*{password}"/>
+          <input type="password" th:field="*{password}"/>
           <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
         </div>
 
         <!-- Repeat Password input -->
-        <div data-mdb-input-init class="form-outline mb-4">
-          <label>Nhập Lại Mật Khẩu:</label>
-          <input type="text" th:field="*{password}"/>
-          <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
-        </div>
+<!--        <div data-mdb-input-init class="form-outline mb-4">-->
+<!--          <label>Nhập Lại Mật Khẩu:</label>-->
+<!--          <input type="password" th:field="*{password}"/>-->
+<!--          <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>-->
+<!--        </div>-->
 
         <!-- Checkbox -->
         <div class="form-check d-flex justify-content-center mb-4">
