@@ -31,6 +31,9 @@ public class UserClass {
     @Column(name="email")
     private String email;
 
+    @Column(name="image")
+    private String image;
+
     @Column(nullable = false)
     private Boolean active;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

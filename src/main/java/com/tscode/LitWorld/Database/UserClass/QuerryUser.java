@@ -88,5 +88,8 @@ public class QuerryUser implements khaibaohamUser {
     public UserClass findByAccount(String account) {
         return storyHubsotry.findByAccount(account);
     }
-
+    @Override
+    public UserClass findByEmail(String email) {
+        return storyHubsotry.findByAccount(email);
+    }
 }

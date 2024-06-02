@@ -1,8 +1,7 @@
-package com.tscode.LitWorld.Controller.CLien;
+package com.tscode.LitWorld.Controller.Auth;
 
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
-import com.tscode.LitWorld.Database.UserClass.khaibaohamUser;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -17,11 +16,10 @@ public class LoginController {
 
     @Autowired
     private QuerryUser querryUser;
-    private khaibaohamUser khaibaohamUser;
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // Trả về trang đăng nhập (login.html)
+        return "auth/login"; // Trả về trang đăng nhập (login-layout.html)
     }
 
     @PostMapping("/login")
@@ -41,7 +39,7 @@ public class LoginController {
         } else {
             model.addAttribute("error", "Invalid username or password!");
         }
-        return "login";
+        return "auth/login";
     }
 
     @GetMapping("/logout")
@@ -58,20 +56,5 @@ public class LoginController {
         return "redirect:/login"; // Đăng xuất thành công, chuyển hướng đến trang đăng nhập
     }
 
-//    @PutMapping("/register")
-//    public String register(@ModelAttribute SignUpDto signUpDto, Model model) {
-//        try {
-//            khaibaohamUser.adduser(signUpDto);
-//            return "redirect:/login"; // Chuyển hướng đến trang đăng nhập sau khi đăng ký thành công
-//        } catch (RuntimeException e) {
-//            model.addAttribute("error", e.getMessage());
-//            return "register"; // Trả về trang đăng ký với thông báo lỗi
-//        }
-//    }
-
-    @RequestMapping("/check")
-    public String check(Model model) {
-        return "component/ClienComponets/user";
-    }
 
 }

@@ -28,6 +28,7 @@ public interface khaibaohamUser {
 
     // login
     public UserClass findByAccount(String account);
+    public UserClass findByEmail(String email);
 }
 
 
