@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="">
+<div th:replace="/component/admincomponets/head :: head"></div>
+<body class="hold-transition skin-blue sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+
+    <header th:replace="/component/admincomponets/header :: header"></header>
+    <!--    <div class="alert alert-success" role="alert" th:text="${tb}">-->
+    <!--    </div>-->
+    <!-- =============================================== -->
+    <!-- Left side column. contains the sidebar -->
+   <div th:replace="/component/AdminComponets/aside ::aside"> </div>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+  <div>
+      <section layout:fragment="content"></section>
+  </div>
+    <!-- /.content-wrapper -->
+
+    <div th:replace="/component/admincomponets/footer :: footer"></div>
+
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+
+<script th:src="@{/assets/admin/js/jquery.min.js}"></script>
+<script th:src="@{/assets/admin/js/jquery-ui.js}"></script>
+<script th:src="@{/assets/admin/js/bootstrap.min.js}"></script>
+<script th:src="@{/assets/admin/js/adminlte.min.js}"></script>
+<script th:src="@{/assets/admin/js/dashboard.js}"></script>
+<script th:src="@{/assets/admin/js/function.js}"></script>
+</body>
+</html>

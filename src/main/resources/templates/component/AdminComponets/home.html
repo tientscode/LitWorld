@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"   layout:decorate="~{admin-layout}" xmlns:sec>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<section>
+    <div layout:fragment="content">
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Blank page
+                    <small>it all starts here</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li><a href="#">Examples</a></li>
+                    <li class="active">Blank page</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <table class="table table-bordered border-secondary bg-red">
+                    <thead>
+                    <tr>
+                        <th Class="col-1">ID</th>
+                        <th Class="col-2">Tên Truyện</th>
+                        <th Class="col-2">Ảnh Truyện</th>
+                        <th Class="col-5">Mô Tả</th>
+                        <!--                    <th Class="col-1">Tác Giả</th>-->
+                        <!--                    <th Class="col-1">Giá</th>-->
+                        <th></th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr th:each="story : ${liststory}">
+                        <td th:text="${story.id}"></td>
+                        <td th:text="${story.name}"></td>
+                        <td>
+                            <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image" width="100"/>
+                        </td>
+                        <td th:text="${story.description}"></td>
+                        <td>
+                            <button class="btn-custom">Update</button>
+                            <button class="btn-custom">Delete</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+            </section>
+            <!-- /.content -->
+        </div>
+    </div>
+</section>
+</body>
+</html>

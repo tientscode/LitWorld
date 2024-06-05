@@ -21,22 +21,23 @@ public class RegisterController {
     public String register(@ModelAttribute("sv") SignUpDto sv) {
         return "auth/register";
     }
+
+
     @RequestMapping("/register/save")
-    public String save( @PathVariable @Validated @ModelAttribute("sv") SignUpDto sv, Errors errors, Model model) {
-        System.out.println("xin chào đã kích hoạt đường dẫn");
+    public String save( @Validated @ModelAttribute("sv") SignUpDto sv, Errors errors, Model model) {
         if (errors.hasErrors()) {
             model.addAttribute("message", "Vui lòng sửa các lỗi sau:");
             return "/auth/register";
+        } else {
+            try {
+                querryUser.adduser(sv);
+            } catch (RuntimeException e) {
+                model.addAttribute("message", e.getMessage());
+                System.out.println(e.getMessage());
+                return "/auth/register";
+            }
+            return "redirect:/login";
         }
-        try {
-            querryUser.adduser(sv);
-        } catch (DuplicateUsernameException e) {
-            model.addAttribute("message", "Tài khoản đã tồn tại, vui lòng thử lại!");
-            return "/auth/register";
-        }
-
-        return "redirect:/login";
     }
-
 
 }

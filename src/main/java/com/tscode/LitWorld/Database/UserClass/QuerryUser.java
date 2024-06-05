@@ -5,6 +5,7 @@ import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import com.tscode.LitWorld.Database.RoleClass.RoleRepository;
 import com.tscode.LitWorld.Dto.SignUpDto;
 import com.tscode.LitWorld.Dto.UserClassDto;
+import com.tscode.LitWorld.exception.DuplicateUsernameException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class QuerryUser implements khaibaohamUser {
     @Override
     public UserClass adduser(SignUpDto signUpDto) {
         if (storyHubsotry.existsByaccount(signUpDto.getAccount())) {
-            throw new RuntimeException("accoutn already exists");
+            throw new DuplicateUsernameException("Tài khoản đã tồn tại");
         }
         UserClass userclass = new UserClass();
         userclass.setAccount(signUpDto.getAccount());
@@ -31,9 +32,10 @@ public class QuerryUser implements khaibaohamUser {
         userclass.setEmail(signUpDto.getEmail());
         userclass.setName(signUpDto.getName());
         userclass.setActive(true);
-
         RoleClass defaultRole = roleRepository.findByName("Role_User");
         userclass.setRoles(Collections.singleton(defaultRole));
+
+
         return storyHubsotry.save(userclass);
     }
 

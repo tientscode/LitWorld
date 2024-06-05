@@ -1,5 +1,8 @@
 package com.tscode.LitWorld.Controller.CLien;
 
+import com.tscode.LitWorld.Database.CategoryClass.CategoryClass;
+import com.tscode.LitWorld.Database.CategoryClass.CategoryRepository;
+import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import com.tscode.LitWorld.Database.StoryClass.QuerryStory;
 import com.tscode.LitWorld.Database.StoryClass.StoryClass;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
@@ -23,6 +26,9 @@ public class HomeClienController {
 
     @Autowired
     private QuerryStory querryStory;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 //    @RequestMapping("/home")
 //    public String home(Model model, HttpServletRequest request) {
@@ -75,13 +81,27 @@ public class HomeClienController {
                 if (cookie.getName().equals("username")) {
                     String username = cookie.getValue();
                     UserClass user = querryUser.findByAccount(username);
-                    model.addAttribute("mess", "Đăng nhập thành công!");
-                    model.addAttribute("user", user);
-                    break;
+                    if (user != null) {
+//                        model.addAttribute("mess", "Đăng nhập thành công!");
+                        model.addAttribute("user", user);
+                        // Kiểm tra quyền của người dùng
+                        for (RoleClass role : user.getRoles()) {
+                            if ("Role_Admin".equals(role.getName())) {
+
+                                model.addAttribute("isAdmin", true);
+                                break;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
 
+    @ModelAttribute
+    public void addAttributes(Model model) {
+        List<CategoryClass> list = categoryRepository.findAll();
+        model.addAttribute("Categorylist", list);
+    }
 }
