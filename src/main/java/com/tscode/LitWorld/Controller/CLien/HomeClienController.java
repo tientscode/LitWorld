@@ -74,6 +74,7 @@ public class HomeClienController {
         // Thêm danh sách câu chuyện vào model
         List<StoryClass> list = querryStory.getlistStory();
         model.addAttribute("liststory", list);
+        System.out.println("danh sach day n" + list);
         // Kiểm tra cookie và thêm thông tin người dùng nếu có
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -87,7 +88,6 @@ public class HomeClienController {
                         // Kiểm tra quyền của người dùng
                         for (RoleClass role : user.getRoles()) {
                             if ("Role_Admin".equals(role.getName())) {
-
                                 model.addAttribute("isAdmin", true);
                                 break;
                             }

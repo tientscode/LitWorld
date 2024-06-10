@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface khaibaohamStory {
 
-    public StoryClass addStory(StoryDto storyDto);
+//    public StoryClass save(StoryDto storyDto);
 
     // lay all danh sach of truyen
     public List<StoryClass> getlistStory();
+
+
 }

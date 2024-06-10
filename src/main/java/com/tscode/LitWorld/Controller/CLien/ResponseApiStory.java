@@ -1,6 +1,7 @@
 package com.tscode.LitWorld.Controller.CLien;
 
 import com.tscode.LitWorld.Database.StoryClass.StoryClass;
+import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.StoryClass.khaibaohamStory;
 import com.tscode.LitWorld.Dto.StoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ public class ResponseApiStory {
 
     @Autowired
     private khaibaohamStory  khaibaohamStory;
+    @Autowired
+    private StoryRepository storyRepository;
 
     @PostMapping("/add")
-    public StoryClass addStory(@RequestBody StoryDto storyDto) {
-        return khaibaohamStory.addStory(storyDto);
+    public StoryClass addStory(@RequestBody StoryClass storyClass) {
+        return storyRepository.save(storyClass);
     }
 
     @GetMapping("/list")

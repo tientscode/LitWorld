@@ -17,7 +17,7 @@ public class StoryClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", unique = true,nullable = false)
     private String name;
     @Column(name = "description")
     private String description;

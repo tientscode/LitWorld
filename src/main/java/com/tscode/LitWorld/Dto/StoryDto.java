@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StoryDto {
 
-    public String namestory;
+    public String name;
     public String description;
     public String image;
 

@@ -29,7 +29,7 @@
                         <th Class="col-1">ID</th>
                         <th Class="col-2">Tên Truyện</th>
                         <th Class="col-2">Ảnh Truyện</th>
-                        <th Class="col-5">Mô Tả</th>
+<!--                        <th Class="col-5">Mô Tả</th>-->
                         <!--                    <th Class="col-1">Tác Giả</th>-->
                         <!--                    <th Class="col-1">Giá</th>-->
                         <th></th>
@@ -42,18 +42,16 @@
                         <td th:text="${story.id}"></td>
                         <td th:text="${story.name}"></td>
                         <td>
-                            <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image" width="100"/>
+                            <img th:src="'/images/' + ${story.image}" alt="image" width="100" height="100"/>
                         </td>
-                        <td th:text="${story.description}"></td>
+<!--                        <td th:text="${story.description}"></td>-->
                         <td>
-                            <button class="btn-custom">Update</button>
-                            <button class="btn-custom">Delete</button>
+                            <button class="btn-custom">Edit</button>
+                            <a th:href="@{/dashboard/edit/delete/{id}(id=${story.id})}">Delete</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
-
-
             </section>
             <!-- /.content -->
         </div>

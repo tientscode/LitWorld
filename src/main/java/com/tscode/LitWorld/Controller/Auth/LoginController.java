@@ -2,6 +2,7 @@ package com.tscode.LitWorld.Controller.Auth;
 
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
+import com.tscode.LitWorld.Service.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,9 @@ public class LoginController {
     @Autowired
     private QuerryUser querryUser;
 
+    @Autowired
+    SessionService session;
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "auth/login"; // Trả về trang đăng nhập (login-layout.html)
@@ -31,8 +35,7 @@ public class LoginController {
         System.out.println("là gì đây" + user);
         if (user != null && user.getPassword().equals(password)) {
             if (user.getActive()) {
-                int userId = user.getId();
-//                Cookie cookie = new Cookie("username", Integer.toString(userId));
+                session.set("user",user);
                 Cookie cookie = new Cookie("username", username);
                 cookie.setMaxAge(24 * 60 * 60); // Thời gian tồn tại của cookie (ví dụ: 1 ngày)
                 response.addCookie(cookie);

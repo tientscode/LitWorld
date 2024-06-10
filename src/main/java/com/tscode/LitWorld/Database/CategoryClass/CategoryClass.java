@@ -19,4 +19,5 @@ public class CategoryClass {
     @Column (name="name")
     private String name;
 
+
 }

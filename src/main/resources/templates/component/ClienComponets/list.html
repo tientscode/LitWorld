@@ -18,7 +18,7 @@
         <div class="row">
             <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${liststory}">
                 <div class="truyen-item">
-                    <img th:src="'/images/' + ${story.image} + '.jpg'" alt="image">
+                    <img th:src="'/images/' + ${story.image}" alt="image">
                     <div  class="tree-title" th:text="${story.name}"></div>
                 </div>
                 <button class="btn-outline-info" style="background-color: #f57224">Thêm vào giỏ hàng</button>

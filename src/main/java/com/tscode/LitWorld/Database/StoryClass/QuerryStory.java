@@ -13,21 +13,23 @@ public class QuerryStory implements khaibaohamStory {
     @Autowired
     private StoryRepository storyRepository;
 
-    @Override
-    public StoryClass addStory(StoryDto storyDto) {
-        if (storyRepository.existsByname(storyDto.getNamestory())) {
-            throw new RuntimeException("accoutn already exists");
-        }
-        StoryClass storyClass = new StoryClass();
-        storyClass.setName(storyDto.getNamestory());
-        storyClass.setDescription(storyDto.getDescription());
-        storyClass.setImage(storyDto.getImage());
-        return storyRepository.save(storyClass);
-    }
+//    @Override
+//    public StoryClass save(StoryDto storyDto) {
+//        if (storyRepository.existsByname(storyDto.getName())) {
+//            throw new RuntimeException("truyện đã tồn tại");
+//        }
+//        StoryClass storyClass = new StoryClass();
+//        storyClass.setName(storyDto.getName());
+//        storyClass.setDescription(storyDto.getDescription());
+//        storyClass.setImage(storyDto.getImage());
+//        return storyRepository.save(storyClass);
+//    }
 
 
     @Override
     public List<StoryClass> getlistStory() {
         return storyRepository.findAll();
     }
+
+
 }
