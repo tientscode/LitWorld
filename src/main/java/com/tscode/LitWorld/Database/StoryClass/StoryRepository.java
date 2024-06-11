@@ -6,4 +6,5 @@ public interface StoryRepository extends JpaRepository<StoryClass, Long> {
     StoryClass save(StoryClass story);
     boolean existsByname(String name);
    StoryClass deleteById(long id);
+   StoryClass findById(long id);
 }

@@ -38,7 +38,7 @@
 
 
                 <li class="nav-item"><a class="nav-link" href="#">Tùy chọn</a></li>
-                <li class="nav-item" th:if="${isAdmin}">
+                <li class="nav-item" th:if="${session.isAdmin}">
                     <a class="nav-link" href="/dashboard">Dashboard</a>
                 </li>
             </ul>
@@ -49,12 +49,15 @@
         </form>
 
         <div class="dropdown show" style="margin-left: 70px; margin-right: 50px;">
+
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span th:if="${user != null}" th:text="${user.name}"></span>
-                <span th:if="${user == null}">Tài Khoản</span>
+                <span th:if="${session.user != null}" th:text="${session.user.name}"></span>
+                <span th:if="${session.user == null}">Tài Khoản</span>
             </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${user != null}" >
+
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${session.user != null}" >
                 <a class="dropdown-item" href="/home/user">Tài Khoản</a>
                 <a class="dropdown-item" href="/home/gio-hang">Giỏ Hàng
                     <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+</span>
@@ -62,7 +65,7 @@
                 </a>
                 <a class="dropdown-item" href="/logout">Sign out</a>
             </div>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${user == null}">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${session.user == null}">
                 <a class="dropdown-item" href="/login">Login</a>
                 <a class="dropdown-item" href="/login">Sign up</a>
                 <a class="dropdown-item" href="/forgot-password">Forgot password</a>

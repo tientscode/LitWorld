@@ -18,4 +18,12 @@ public class RoleClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "RoleClass{" +
+                "id='" + id + '\'' +
+                ", name=" + name +
+                '}';
+    }
 }

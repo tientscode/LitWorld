@@ -5,30 +5,39 @@ import com.tscode.LitWorld.Database.CategoryClass.CategoryRepository;
 import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import com.tscode.LitWorld.Database.StoryClass.QuerryStory;
 import com.tscode.LitWorld.Database.StoryClass.StoryClass;
+import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
+import com.tscode.LitWorld.Service.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 
 
 @Controller
 public class HomeClienController {
 
     @Autowired
-    private QuerryUser querryUser;
-
+    SessionService session;
     @Autowired
-    private QuerryStory querryStory;
-
+    QuerryStory querryStory;
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
+    @Autowired
+    StoryRepository storyRepository;
 
 //    @RequestMapping("/home")
 //    public String home(Model model, HttpServletRequest request) {
@@ -56,6 +65,26 @@ public class HomeClienController {
         return "component/ClienComponets/list";
     }
 
+    @PostMapping("/home/gio-hang")
+    public String giohanga(@RequestBody List<String> userCart) {
+        System.out.println("nó đây nè" + userCart);
+
+        List<StoryClass> stories = new ArrayList<>(); // Tạo một danh sách mới để lưu các truyện
+
+        for (String id : userCart) {
+            Long storyId = Long.parseLong(id);
+            StoryClass story = storyRepository.findById(storyId).orElse(null);
+            if (story != null) {
+                System.out.println("Truyện: " + story.getName());
+                stories.add(story); // Thêm truyện vào danh sách
+            }
+        }
+
+        session.set("lists", stories); // Lưu danh sách truyện vào session
+
+        return "component/ClienComponets/tutruyen";
+    }
+
 
     @RequestMapping("/home/gio-hang")
     public String giohang(){
@@ -72,30 +101,17 @@ public class HomeClienController {
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
         // Thêm danh sách câu chuyện vào model
+        UserClass user =  session.get("user");
         List<StoryClass> list = querryStory.getlistStory();
         model.addAttribute("liststory", list);
-        System.out.println("danh sach day n" + list);
-        // Kiểm tra cookie và thêm thông tin người dùng nếu có
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    String username = cookie.getValue();
-                    UserClass user = querryUser.findByAccount(username);
-                    if (user != null) {
-//                        model.addAttribute("mess", "Đăng nhập thành công!");
-                        model.addAttribute("user", user);
-                        // Kiểm tra quyền của người dùng
-                        for (RoleClass role : user.getRoles()) {
-                            if ("Role_Admin".equals(role.getName())) {
-                                model.addAttribute("isAdmin", true);
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
+//        Set<String> roles = user.getRoles().stream()
+//                .map(RoleClass::getName)
+//                .collect(Collectors.toSet());
+//        if (roles.contains("Role_Admin")) {
+//           model.addAttribute("isAdmin", true);
+//        } else {
+//            model.addAttribute("isAdmin", false);
+//        }
     }
 
 

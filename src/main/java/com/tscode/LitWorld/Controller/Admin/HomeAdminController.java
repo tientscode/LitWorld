@@ -32,86 +32,31 @@ public class HomeAdminController {
     @GetMapping()
     public String dashboard(Model model, HttpServletRequest request) {
         List<StoryClass> list = khaibaohamStory.getlistStory();
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    String username = cookie.getValue();
-                    UserClass user = querryUser.findByAccount(username);
-                    for (RoleClass role : user.getRoles()) {
-                        System.out.println(role.getName());
-                        try {
-                            if (role.getName().contains("Role_Admin")) {
-
-                                model.addAttribute("user", user);
-                                model.addAttribute("liststory", list);
-                                return "component/AdminComponets/home";
-                            } else {
-                                return "error";
-                            }
-                        } catch (Exception e) {
-                            return "error";
-                        }
-                    }
-                }
-            }
-        }
-        return "auth/login";
+        model.addAttribute("liststory", list);
+        return "component/AdminComponets/home";
     }
-
 
 
     @GetMapping("/user")
     public String allUser(Model model, HttpServletRequest request) {
         List<UserClass> users = querryUser.getClassUsers();
-        System.out.println(users.get(0).getName());
         model.addAttribute("users", users);
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    String username = cookie.getValue();
-                    UserClass user = querryUser.findByAccount(username);
-                    model.addAttribute("user", user);
-                    model.addAttribute("users", users);
-                    return "component/AdminComponets/User";
-                }
-            }
-        }
-        return "redirect:/login";
+        System.out.println(users.get(0).getName());
+        return "component/AdminComponets/User";
     }
 
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String showStoryForm(Model model, HttpServletRequest request) {
         StoryClass storyClass = new StoryClass();
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    String username = cookie.getValue();
-                    UserClass user = querryUser.findByAccount(username);
-                    model.addAttribute("user", user);
-                    model.addAttribute("storyClass", storyClass);
-                    return "component/AdminComponets/CreateStory";
-                }
-            }
-        }
-        return "redirect:/login";
+        model.addAttribute("storyClass", storyClass);
+        return "component/AdminComponets/CreateStory";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String submitStoryForm(@ModelAttribute("storyClass") StoryClass storyClass, HttpServletRequest request) {
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("username")) {
-                    storyRepository.save(storyClass);
-                    return "redirect:/dashboard";
-                }
-            }
-        }
-        return "redirect:/login";
+        storyRepository.save(storyClass);
+        return "redirect:/dashboard";
     }
 
     @RequestMapping("/edit/delete/{id}")
