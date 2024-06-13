@@ -45,11 +45,9 @@ public class QuerryUser implements khaibaohamUser {
         if (UserClass != null) {
             UserClass userClass1 = storyHubsotry.getById(Id);
             if (userClass1 != null) {
-                userClass1.setAccount(UserClass.getAccount());
-                userClass1.setPassword(UserClass.getPassword());
                 userClass1.setName(UserClass.getName());
-                userClass1.setActive(UserClass.getActive());
-//                UserClass.setRoles(UserClass.getRoles());
+//                userClass1.setImage(UserClass.getImage());
+                userClass1.setEmail(UserClass.getEmail());
                 return storyHubsotry.save(userClass1);
             }
         }

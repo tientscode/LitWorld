@@ -8,23 +8,20 @@ import com.tscode.LitWorld.Database.StoryClass.StoryClass;
 import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
+import com.tscode.LitWorld.Database.UserClass.UserRepository;
+import com.tscode.LitWorld.Dto.UserClassDto;
 import com.tscode.LitWorld.Service.SessionService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
-import static org.apache.catalina.realm.UserDatabaseRealm.getRoles;
 
 
 @Controller
@@ -38,6 +35,8 @@ public class HomeClienController {
     CategoryRepository categoryRepository;
     @Autowired
     StoryRepository storyRepository;
+    @Autowired
+    QuerryUser querryUser;
 
 //    @RequestMapping("/home")
 //    public String home(Model model, HttpServletRequest request) {
@@ -66,22 +65,22 @@ public class HomeClienController {
     }
 
     @PostMapping("/home/gio-hang")
-    public String giohanga(@RequestBody List<String> userCart) {
+    public String giohanga(@RequestBody List<String> userCart,Model model) {
         System.out.println("nó đây nè" + userCart);
 
         List<StoryClass> stories = new ArrayList<>(); // Tạo một danh sách mới để lưu các truyện
-
+        double totalPrice = 0.0;
         for (String id : userCart) {
             Long storyId = Long.parseLong(id);
             StoryClass story = storyRepository.findById(storyId).orElse(null);
             if (story != null) {
-                System.out.println("Truyện: " + story.getName());
+                System.out.println("Truyện: " + story.getPrice());
                 stories.add(story); // Thêm truyện vào danh sách
+                totalPrice += story.getPrice();
             }
         }
-
         session.set("lists", stories); // Lưu danh sách truyện vào session
-
+      session.set("totalPrice", totalPrice);
         return "component/ClienComponets/tutruyen";
     }
 
@@ -96,22 +95,42 @@ public class HomeClienController {
         return "component/ClienComponets/user";
     }
 
+    @PostMapping(value = "/home/user", consumes = "multipart/form-data")
+    public String updateUser(@ModelAttribute UserClass userClass,
+                             @RequestParam("image") MultipartFile imageFile,
+                             Model model) {
+        try {
+//            if (!imageFile.isEmpty()) {
+//                // Lấy tên file
+//                String fileName = imageFile.getOriginalFilename();
+//                // Lưu file vào thư mục (ví dụ: /uploads/)
+//                Path path = Paths.get("uploads/" + fileName);
+//                Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+//                // Lưu tên file vào thuộc tính image của UserClass
+//                userClass.setImage(fileName);
+//            }
+
+            // Gọi phương thức dịch vụ để cập nhật thông tin người dùng
+            querryUser.upClassUser(userClass.getId(), userClass);
+
+            model.addAttribute("successMessage", "Thông tin đã được cập nhật thành công");
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật thông tin");
+        }
+
+        return "component/ClienComponets/user";
+    }
+
+
+
+
 
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
         // Thêm danh sách câu chuyện vào model
-        UserClass user =  session.get("user");
         List<StoryClass> list = querryStory.getlistStory();
         model.addAttribute("liststory", list);
-//        Set<String> roles = user.getRoles().stream()
-//                .map(RoleClass::getName)
-//                .collect(Collectors.toSet());
-//        if (roles.contains("Role_Admin")) {
-//           model.addAttribute("isAdmin", true);
-//        } else {
-//            model.addAttribute("isAdmin", false);
-//        }
     }
 
 

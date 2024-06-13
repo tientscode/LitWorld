@@ -7,7 +7,7 @@
 </head>
 <body>
 <section layout:fragment="content">
-    <div class="content-wrapper">
+    <div class="content-wrapper ">
         <section class="content">
             <table class="table table-bordered border-secondary bg-red">
                 <thead>
@@ -15,14 +15,8 @@
                     <th Class="col-1">ID</th>
                     <th Class="col-2">Account</th>
                     <th Class="col-2">Name</th>
-                    <th class="col-3">active</th>
-                    <th class="col-4">email</th>
-                    <th class="col-5">image</th>
-                    <!--                        <th Class="col-5">Mô Tả</th>-->
-                    <!--                    <th Class="col-1">Tác Giả</th>-->
-                    <!--                    <th Class="col-1">Giá</th>-->
+                    <th class="col-3">Active</th>
                     <th></th>
-
                 </tr>
                 </thead>
                 <tbody>
@@ -31,20 +25,47 @@
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.account}"></td>
                     <td th:text="${user.name}"></td>
-                    <td th:text="${user.active}"></td>
-                    <td th:text="${user.email}"></td>
                     <td>
-                        <img th:src="'/images/' + ${user.image}" alt="image" width="100" height="100"/>
+                        <input type="checkbox" th:checked="${user.active}" disabled style="transform: scale(1.5);">
                     </td>
-                    <!--                        <td th:text="${story.description}"></td>-->
                     <td>
-                        <button class="btn-custom">Edit</button>
+                        <a th:href="@{'/dashboard/user/' + ${user.id}}" class="btn-custom">Edit</a>
                         <button class="btn-custom">Delete</button>
                     </td>
                 </tr>
                 </tbody>
             </table>
+
+             Table for Edit
+            <form  class="hidden containers" id="edit-table">
+                <input  type="text">
+                <input  type="text">
+                <input type="checkbox">
+                <button type="submit"> Save</button>
+            </form>
+
         </section>
+        <script>
+            function showEditTable() {
+                var editTable = document.getElementById("edit-table");
+                editTable.classList.remove("hidden");
+            }
+        </script>
+
+        <style>
+            .hidden {
+                display: none;
+            }
+
+            .containers {
+                width: 50%;
+                margin: 50px auto;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            }
+        </style>
     </div>
 </section>
 </body>

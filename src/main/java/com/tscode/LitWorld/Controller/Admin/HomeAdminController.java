@@ -6,6 +6,7 @@ import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.StoryClass.khaibaohamStory;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
+import com.tscode.LitWorld.Database.UserClass.UserRepository;
 import com.tscode.LitWorld.Dto.StoryDto;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -28,6 +29,9 @@ public class HomeAdminController {
 
     @Autowired
     private QuerryUser querryUser;
+
+    @Autowired
+    UserRepository userRepository;
 
     @GetMapping()
     public String dashboard(Model model, HttpServletRequest request) {
@@ -63,6 +67,15 @@ public class HomeAdminController {
     public String deleteidstory(@PathVariable("id") Long id) {
         storyRepository.deleteById(id);
         return "redirect:/dashboard";
+    }
+
+    @RequestMapping("/user/{id}")
+    public String edit(Model model, @PathVariable("id") Integer id) {
+        UserClass usercurren = userRepository.findAllById(id);
+        model.addAttribute("usercurren", usercurren);
+//        List<Categories> items = categoryDAO.findAll();
+//        model.addAttribute("items", items);
+        return "component/ClienComponets/user";
     }
 
 //    @RequestMapping("/edit/{id}")

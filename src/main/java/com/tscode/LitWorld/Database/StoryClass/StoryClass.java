@@ -23,4 +23,6 @@ public class StoryClass {
     private String description;
     @Column(name = "image")
     private String image;
+    private  Double price;
+
 }

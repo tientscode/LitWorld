@@ -13,36 +13,26 @@
     <div layout:fragment="content">
         <div class="user-card">
             <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
-            <form method="post" action="/update-profile" enctype="multipart/form-data">
+            <form method="post" action="/home/user" enctype="multipart/form-data">
                 <div class="form-group text-center">
-                    <!--                    <label for="image">Hình ảnh</label>-->
                     <img src="/images/user.png" class="rounded-circle" alt="Cinque Terre">
                 </div>
-                <div class="text-center"><input type="file"></div>
+                <div class="text-center"><input type="file" name="image"></div>
                 <div class="form-group">
-                    <label for="username">Account</label>
-                    <input th:value="${session.user.account}" type="text" class="form-control" id="account" name="account"
-                           readonly>
+                    <label for="account">Account</label>
+                    <input th:value="${session.user.account}" type="text" class="form-control" id="account" name="account" readonly>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input th:value="${session.user.email}" type="email" class="form-control" id="email" name="email" required>
                 </div>
-                <!--                <div class="form-group">-->
-                <!--                    <label for="password">Mật khẩu</label>-->
-                <!--                    <input type="password" class="form-control" id="password" name="password" required>-->
-                <!--                </div>-->
                 <div class="form-group">
-                    <label for="account">Name</label>
-                    <input th:value="${session.user.name}" type="text" class="form-control" id="username" name="username"
-                           required>
+                    <label for="username">Name</label>
+                    <input th:value="${session.user.name}" type="text" class="form-control" id="username" name="username" required>
                 </div>
-                <!--                <button type="submit" class="btn btn-primary btn-block">Cập nhật</button>-->
-
-                <button type="button">Cập Nhât
-                </button>
-
+                <button type="submit">Cập Nhật</button>
             </form>
+
         </div>
     </div>
 </section>
