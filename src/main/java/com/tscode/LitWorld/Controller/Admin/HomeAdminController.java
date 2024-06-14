@@ -1,14 +1,11 @@
 package com.tscode.LitWorld.Controller.Admin;
 
-import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import com.tscode.LitWorld.Database.StoryClass.StoryClass;
 import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.StoryClass.khaibaohamStory;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
 import com.tscode.LitWorld.Database.UserClass.UserRepository;
-import com.tscode.LitWorld.Dto.StoryDto;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,14 +34,14 @@ public class HomeAdminController {
     public String dashboard(Model model, HttpServletRequest request) {
         List<StoryClass> list = khaibaohamStory.getlistStory();
         model.addAttribute("liststory", list);
-        return "component/AdminComponets/home";
+        return "component/AdminComponets/Home";
     }
 
 
     @GetMapping("/user")
     public String allUser(Model model, HttpServletRequest request) {
         List<UserClass> users = querryUser.getClassUsers();
-        model.addAttribute("users", users);
+//        model.addAttribute("users", users);
         System.out.println(users.get(0).getName());
         return "component/AdminComponets/User";
     }
@@ -75,19 +72,15 @@ public class HomeAdminController {
         model.addAttribute("usercurren", usercurren);
 //        List<Categories> items = categoryDAO.findAll();
 //        model.addAttribute("items", items);
-        return "component/ClienComponets/user";
+        return "component/AdminComponets/User";
     }
 
 
-
-//    @RequestMapping("/edit/{id}")
-//    public String edit(Model model, @PathVariable("id") String id) {
-//        Categories item = categoryDAO.findById(id).get();
-//        model.addAttribute("item", item);
-//        List<Categories> items = categoryDAO.findAll();
-//        model.addAttribute("items", items);
-//        return "index";
-//    }
+    @RequestMapping("/user/update")
+    public String update(UserClass item) {
+        userRepository.save(item);
+        return "redirect:/dashboard/user/" + item.getId();
+    }
 
 
 }

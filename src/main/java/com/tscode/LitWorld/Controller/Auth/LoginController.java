@@ -26,7 +26,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "auth/login"; // Trả về trang đăng nhập (login-layout.html)
+        return "auth/login"; // Trả về trang đăng nhập (Login-layout.html)
     }
 
     @PostMapping("/login")

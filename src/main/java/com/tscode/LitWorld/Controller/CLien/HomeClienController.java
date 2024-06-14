@@ -2,26 +2,24 @@ package com.tscode.LitWorld.Controller.CLien;
 
 import com.tscode.LitWorld.Database.CategoryClass.CategoryClass;
 import com.tscode.LitWorld.Database.CategoryClass.CategoryRepository;
-import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import com.tscode.LitWorld.Database.StoryClass.QuerryStory;
 import com.tscode.LitWorld.Database.StoryClass.StoryClass;
 import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
 import com.tscode.LitWorld.Database.UserClass.UserRepository;
-import com.tscode.LitWorld.Dto.UserClassDto;
 import com.tscode.LitWorld.Service.SessionService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 @Controller
@@ -37,35 +35,16 @@ public class HomeClienController {
     StoryRepository storyRepository;
     @Autowired
     QuerryUser querryUser;
-
-//    @RequestMapping("/home")
-//    public String home(Model model, HttpServletRequest request) {
-//        Cookie[] cookies = request.getCookies();
-//        if (cookies != null) {
-//            for (Cookie cookie : cookies) {
-//                if (cookie.getName().equals("username")) {
-//                    String username = cookie.getValue();
-//                    UserClass user = querryUser.findByAccount(username);
-//                    model.addAttribute("mess", "Đăng nhập thành công!");
-//                    model.addAttribute("user", user);
-////                    System.out.println("Đã đọc cookie username: " + username);
-//                    break;
-//                }
-//            }
-//        }
-//        return "index";
-//    }
+    @Autowired
+    UserRepository userRepository;
 
     @RequestMapping("/home")
     public String home(Model model, HttpServletRequest request) {
-        // Bất kỳ xử lý nào khác mà bạn muốn thêm vào trong phương thức `home`
-//        model.addAttribute("extra", "Any additional processing or attributes can be added here");
-
         return "component/ClienComponets/list";
     }
 
     @PostMapping("/home/gio-hang")
-    public String giohanga(@RequestBody List<String> userCart,Model model) {
+    public String giohanga(@RequestBody List<String> userCart, Model model) {
         System.out.println("nó đây nè" + userCart);
 
         List<StoryClass> stories = new ArrayList<>(); // Tạo một danh sách mới để lưu các truyện
@@ -80,50 +59,33 @@ public class HomeClienController {
             }
         }
         session.set("lists", stories); // Lưu danh sách truyện vào session
-      session.set("totalPrice", totalPrice);
+        session.set("totalPrice", totalPrice);
         return "component/ClienComponets/tutruyen";
     }
 
 
     @RequestMapping("/home/gio-hang")
-    public String giohang(){
+    public String giohang() {
         return "component/ClienComponets/tutruyen";
     }
 
     @RequestMapping("/home/user")
-    public String user(){
-        return "component/ClienComponets/user";
+    public String user() {
+        return "component/ClienComponets/User";
     }
 
-    @PostMapping(value = "/home/user", consumes = "multipart/form-data")
-    public String updateUser(@ModelAttribute UserClass userClass,
-                             @RequestParam("image") MultipartFile imageFile,
-                             Model model) {
-        try {
-//            if (!imageFile.isEmpty()) {
-//                // Lấy tên file
-//                String fileName = imageFile.getOriginalFilename();
-//                // Lưu file vào thư mục (ví dụ: /uploads/)
-//                Path path = Paths.get("uploads/" + fileName);
-//                Files.copy(imageFile.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-//                // Lưu tên file vào thuộc tính image của UserClass
-//                userClass.setImage(fileName);
-//            }
-
-            // Gọi phương thức dịch vụ để cập nhật thông tin người dùng
-            querryUser.upClassUser(userClass.getId(), userClass);
-
-            model.addAttribute("successMessage", "Thông tin đã được cập nhật thành công");
-        } catch (Exception e) {
-            model.addAttribute("errorMessage", "Có lỗi xảy ra khi cập nhật thông tin");
+    @RequestMapping("/home/user/update")
+    public String userupdate(@ModelAttribute UserClass user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "Error";
         }
-
-        return "component/ClienComponets/user";
+        String fileName = StringUtils.cleanPath(user.getImageFile().getOriginalFilename());
+        user.setImage(fileName);
+        System.out.println("bị lỗi lol gif đaay"+user);
+        userRepository.save(user);
+        session.set("user",user);
+        return "component/ClienComponets/User";
     }
-
-
-
-
 
 
     @ModelAttribute

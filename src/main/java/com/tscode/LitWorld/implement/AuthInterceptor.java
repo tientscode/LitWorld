@@ -23,7 +23,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         UserClass user = session.get("user");
         String error = "";
         if (user == null) {
-            System.out.println("lỗiở đây 26 authinterceptor");
+            System.out.println("lỗi ở đây 26 authinterceptor");
             error = "Please login!";
             response.sendRedirect("/login");
             return false;
@@ -33,7 +33,7 @@ public class AuthInterceptor implements HandlerInterceptor {
                     .map(RoleClass::getName)
                     .collect(Collectors.toSet());
             System.out.println("User roles saved in session: " + ((UserClass)session.get("user")).getRoles());
-//            session.set("isAdmin", roles.contains("Role_Admin"));
+            session.set("isAdmin", roles.contains("Role_Admin"));
             if (roles.contains("Role_User") && uri.startsWith("/dashboard")) {
                 System.out.println("lỗi ở authinterceptor 38");
                 error = "Access denied!";

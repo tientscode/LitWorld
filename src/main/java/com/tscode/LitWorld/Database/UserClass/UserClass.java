@@ -3,6 +3,7 @@ package com.tscode.LitWorld.Database.UserClass;
 import com.tscode.LitWorld.Database.RoleClass.RoleClass;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Set;
 
@@ -33,6 +34,9 @@ public class UserClass {
 
     @Column(name="image")
     private String image;
+
+    @Transient  // không lưu trữ trong database
+    private MultipartFile imageFile;
 
     @Column(nullable = false)
     private Boolean active;

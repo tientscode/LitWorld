@@ -13,22 +13,33 @@
     <div layout:fragment="content">
         <div class="user-card">
             <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
-            <form method="post" action="/home/user" enctype="multipart/form-data">
+            <form method="post" action="/home/user/update" enctype="multipart/form-data">
                 <div class="form-group text-center">
-                    <img src="/images/user.png" class="rounded-circle" alt="Cinque Terre">
+                    <img th:src="'/images/'+${session.user.image}" class="rounded-circle" alt="Cinque Terre">
                 </div>
-                <div class="text-center"><input type="file" name="image"></div>
+
+                <div class="text-center"><input type="file" name="imageFile"></div>
+
                 <div class="form-group">
                     <label for="account">Account</label>
-                    <input th:value="${session.user.account}" type="text" class="form-control" id="account" name="account" readonly>
+                    <input th:value="${session.user.account}" type="text" class="form-control" id="account"
+                           name="account" readonly>
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input th:value="${session.user.email}" type="email" class="form-control" id="email" name="email" required>
+                    <input th:value="${session.user.email}" type="email" class="form-control" id="email" name="email"
+                           required>
                 </div>
+
+                <input th:value="${session.user.id}" type="hidden" class="form-control"  name="id">
+                <input th:value="${session.user.password}" type="hidden" class="form-control"  name="password">
+                <input th:value="${session.user.active}" type="hidden" class="form-control" name="active">
+
+
                 <div class="form-group">
                     <label for="username">Name</label>
-                    <input th:value="${session.user.name}" type="text" class="form-control" id="username" name="username" required>
+                    <input th:value="${session.user.name}" type="text" class="form-control" id="username"
+                           name="name" required>
                 </div>
                 <button type="submit">Cập Nhật</button>
             </form>

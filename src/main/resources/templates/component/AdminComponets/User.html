@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.thymeleaf.org"
-      layout:decorate="~{admin-layout}" xmlns:sec>
+      layout:decorate="~{Admin-layout}" xmlns:sec>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .login-box {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 400px;
+        padding: 40px;
+        transform: translate(-50%, -50%);
+        background: rgba(24, 20, 20, 0.987);
+        box-sizing: border-box;
+        box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+        border-radius: 10px;
+    }
+</style>
 <body>
 <section layout:fragment="content">
     <div class="content-wrapper ">
@@ -21,7 +35,7 @@
                 </thead>
                 <tbody>
 
-                <tr th:each="user : ${users}">
+                <tr th:each="user : ${session.listuser}">
                     <td th:text="${user.id}"></td>
                     <td th:text="${user.account}"></td>
                     <td th:text="${user.name}"></td>
@@ -30,42 +44,24 @@
                     </td>
                     <td>
                         <a th:href="@{'/dashboard/user/' + ${user.id}}" class="btn-custom">Edit</a>
-                        <button class="btn-custom">Delete</button>
+<!--                        <a th:href="@{/edit/delete/{id}(id=${item.id})}">Delete</a>-->
                     </td>
                 </tr>
                 </tbody>
             </table>
 
-             Table for Edit
-            <form  class="hidden containers" id="edit-table">
-                <input  type="text">
-                <input  type="text">
-                <input type="checkbox">
-                <button type="submit"> Save</button>
+            <form class="form" th:if="${usercurren}!=null" th:action="@{/dashboard/user/update}" th:object="${usercurren}" method="post">
+                <input type="hidden" th:field="*{id}" />
+                <input type="text" th:field="*{account}" readonly  />
+                <input type="text" th:field="*{name}"  />
+                <input type="email" th:field="*{email}" />
+                <input type="checkbox" th:field="*{active}"  style="transform: scale(1.5)"/>
+                <hr>
+                <button formaction="/dashboard/user/update">Update</button>
+                <a th:href="@{'/dashboard/user/' + ${id}}">Reset</a>
             </form>
 
         </section>
-        <script>
-            function showEditTable() {
-                var editTable = document.getElementById("edit-table");
-                editTable.classList.remove("hidden");
-            }
-        </script>
-
-        <style>
-            .hidden {
-                display: none;
-            }
-
-            .containers {
-                width: 50%;
-                margin: 50px auto;
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            }
-        </style>
     </div>
 </section>
 </body>
