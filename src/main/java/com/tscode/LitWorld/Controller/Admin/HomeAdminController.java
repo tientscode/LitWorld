@@ -78,6 +78,8 @@ public class HomeAdminController {
         return "component/ClienComponets/user";
     }
 
+
+
 //    @RequestMapping("/edit/{id}")
 //    public String edit(Model model, @PathVariable("id") String id) {
 //        Categories item = categoryDAO.findById(id).get();

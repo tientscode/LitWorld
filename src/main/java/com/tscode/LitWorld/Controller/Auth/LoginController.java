@@ -71,4 +71,9 @@ public class LoginController {
     }
 
 
+    @RequestMapping("/sendmail_otp")
+    public String sendMailOtp(HttpServletRequest request, HttpServletResponse response) {
+        return "auth/Sendmail_Otp";
+    }
+
 }

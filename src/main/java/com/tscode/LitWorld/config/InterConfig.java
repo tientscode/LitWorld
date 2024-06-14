@@ -22,6 +22,8 @@ public class InterConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/static/*");
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/dashboard/**");
+
+
     }
 
 

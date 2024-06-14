@@ -4,121 +4,55 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <style>
-    body {
-      background: url('/images/brg.jpg') no-repeat center center fixed;
-      background-size: cover;
-    }
-    .form-outline {
-      display: flex;
-      flex-direction: column;
-      margin-bottom: 20px;
-    }
-    .form-outline label {
-      margin-bottom: 5px;
-    }
-    .form-outline input {
-      width: 100%;
-      padding: 10px;
-      box-sizing: border-box;
-    }
-    .error {
-      color: red;
-      margin-top: 5px;
-    }
-    .btn-block {
-      width: 100%;
-    }
-    .text-center {
-      text-align: center;
-    }
-    .container {
-      margin-top: 50px;
-      padding: 50px;
-      max-width: 600px;
-    }
-  </style>
+
+
 </head>
 <body>
 <section>
   <div layout:fragment="content">
-    <div class="container mt-5 p-5 col-md-6">
+    <div class="login-box">
+
       <form action="/register/save" th:object="${sv}"  method="post">
-        <div class="text-center mb-3">
-          <p>Đăng ký với:</p>
-          <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-            <i class="fab fa-facebook-f"></i>
-          </button>
-
-          <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-            <i class="fab fa-google"></i>
-          </button>
-
-          <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-            <i class="fab fa-twitter"></i>
-          </button>
-
-          <button data-mdb-ripple-init type="button" class="btn btn-secondary btn-floating mx-1">
-            <i class="fab fa-github"></i>
-          </button>
-        </div>
-
-        <p class="text-center">hoặc:</p>
-
 
         <!-- Name input -->
         <div th:text="${message}" class="error"></div>
-        <div data-mdb-input-init class="form-outline mb-4">
-          <label>Tên Hiển Thị:</label>
-          <input type="text" th:field="*{name}"/>
-          <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
+        <div class="user-box">
+
+          <input id="username" type="text" th:field="*{name}" required=""/>
+          <label for="username" >Tên Hiển Thị:</label>
+          <span  th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"></span>
         </div>
 
         <!-- Username input -->
-        <div data-mdb-input-init class="form-outline mb-4">
+        <div class="user-box">
+
+          <input type="text" th:field="*{account}" required=""/>
           <label>Tài khoản:</label>
-          <input type="text" th:field="*{account}"/>
           <span th:if="${#fields.hasErrors('account')}" th:errors="*{account}" class="error"></span>
         </div>
 
         <!-- Email input -->
-        <div data-mdb-input-init class="form-outline mb-4">
+        <div class="user-box">
+
+          <input type="text" th:field="*{email}" required=""/>
           <label>Email:</label>
-          <input type="text" th:field="*{email}"/>
           <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+
         </div>
 
         <!-- Password input -->
-        <div data-mdb-input-init class="form-outline mb-4">
+        <div class="user-box">
+
+          <input type="password" th:field="*{password}" required=""/>
           <label>Mật Khẩu:</label>
-          <input type="password" th:field="*{password}"/>
           <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
         </div>
 
-        <!-- Repeat Password input -->
-<!--        <div data-mdb-input-init class="form-outline mb-4">-->
-<!--          <label>Nhập Lại Mật Khẩu:</label>-->
-<!--          <input type="password" th:field="*{password}"/>-->
-<!--          <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>-->
-<!--        </div>-->
-
-        <!-- Checkbox -->
-        <div class="form-check d-flex justify-content-center mb-4">
-          <input
-                  class="form-check-input me-2"
-                  type="checkbox"
-                  value=""
-                  id="registerCheck"
-                  checked
-                  aria-describedby="registerCheckHelpText"
-          />
-          <label class="form-check-label" for="registerCheck">
-            Tôi đã đọc và đồng ý với các điều khoản
-          </label>
-        </div>
-        <!-- Submit button -->
-        <button  type="submit" class="btn btn-primary btn-block mb-3 data-mdb-ripple-init">Đăng ký</button>
-        <a href="/login">Đã có tài khoản? Đăng nhập ngay</a>
+        <center>
+          <button type="submit">Đăng ký <span></span></button> <br>
+          <a href="/login">Đã có tài khoản? Đăng nhập ngay</a><br>
+          <a href="/"></a>
+        </center>
       </form>
     </div>
   </div>
