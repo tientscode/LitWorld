@@ -14,11 +14,11 @@
         <div class="user-card">
             <h3 class="text-center">Cập nhật thông tin cá nhân</h3>
             <form method="post" action="/home/user/update" enctype="multipart/form-data">
-                <div class="form-group text-center">
-                    <img th:src="'/images/'+${session.user.image}" class="rounded-circle" alt="Cinque Terre">
+                <div class="form-group text-center" style="display: flex; justify-content: center; align-items: center;">
+                    <img th:src="'/images/'+${session.user.image}" id="imagePreview" class="rounded-circle" alt="Cinque Terre">
                 </div>
 
-                <div class="text-center"><input type="file" name="imageFile"></div>
+                <div id="imageUpload" class="text-center"><input type="file" name="imageFile"></div>
 
                 <div class="form-group">
                     <label for="account">Account</label>

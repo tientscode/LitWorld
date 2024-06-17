@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:layout="http://www.thymeleaf.org"
-      layout:decorate="~{Admin-layout}" xmlns:sec >
+      layout:decorate="~{Admin-layout}" xmlns:sec>
 <head>
     <meta charset="UTF-8">
     <title>Story Form</title>
@@ -18,7 +18,7 @@
                 padding: 0.7em 1.4em 0.7em 1.1em;
                 color: white;
                 background: #ad5389;
-                background: linear-gradient(0deg, rgba(20,167,62,1) 0%, rgba(102,247,113,1) 100%);
+                background: linear-gradient(0deg, rgba(20, 167, 62, 1) 0%, rgba(102, 247, 113, 1) 100%);
                 border: none;
                 box-shadow: 0 0.7em 1.5em -0.5em #14a73e98;
                 letter-spacing: 0.05em;
@@ -37,46 +37,195 @@
                 box-shadow: 0 0.3em 1em -0.5em #14a73e98;
             }
 
+            .card-body {
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto;
+                padding: 1.25rem;
+            }
+
+            .card {
+                margin-bottom: 1.25rem;
+                box-shadow: 0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+                border-width: 0;
+            }
+
+            .legitRipple {
+                position: relative;
+                overflow: hidden;
+                z-index: 0;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            #imageUpload {
+                opacity: 0;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .upload-btn {
+                padding: 10px;
+            }
+
+            #storyCover {
+                width: 100%;
+                height: 0;
+                padding-bottom: 145%;
+                position: relative;
+                overflow: hidden;
+                background-size: contain;
+            }
+
+            #storyCover img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+            }
         </style>
         <div class="content-wrapper">
-            <section class="content-header">
-                <h1>
-                    Blank page
-                    <small>it all starts here</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li><a href="#">Examples</a></li>
-                    <li class="active">Blank page</li>
-                </ol>
-            </section>
+            <!--            <section class="content-header">-->
+            <!--            </section>-->
+
             <section class="content">
-                <div class="row">
+                <form class="row" th:action="@{/dashboard/create}" th:object="${storyClass}" method="post">
                     <div class="col-md-12">
-                        <form th:action="@{/dashboard/create}" th:object="${storyClass}" method="post">
-                            <div class="form-group">
-                                <label for="storyName">Story Name</label>
-                                <input type="text" th:field="*{name}" class="form-control" id="storyName" placeholder="Story Name">
+
+                        <div class="alert alert-danger">
+                            - Lưu ý: nếu bạn là tác giả truyện đã có trên LitWorld vui lòng gửi mail đến: <strong>tienit.tscode@gmail.com</strong>
+                            để được set là chủ sở hữu truyện và chỉ cần tiếp tục đăng chương.
+                        </div>
+                        <div class="alert alert-danger">
+                            - Lưu ý quan trọng: Nghiêm cấm các thể loại: LÔI, CẤM KỴ, L LUÂN, NP...quá sắc
+                        </div>
+
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-4 text-center">
+                                        <div id="storyCover">
+                                            <img id="imagePreview" src="#" alt="Image Preview" style="display: none;">
+                                        </div>
+                                        <label for="imageUpload" class="upload-btn btn btn-success legitRipple">Chọn Ảnh
+                                            Bìa</label>
+                                        <input style="width: 125px" type="file" th:field="*{image}" id="imageUpload"
+                                               required accept="image/png, image/jpg, image/jpeg">
+                                        <!--                                        <input th:if="${storyid.name}!=null" style="width: 125px" type="file" th:text="${storyid.name}" required accept="image/png, image/jpg, image/jpeg">-->
+                                        <p class="text-muted font-italic">Hỗ trợ ảnh có đuôi .jpg, .png, .jpeg. Kích
+                                            thước &lt;=500kb</p>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-8">
+
+                                        <div class="form-group">
+                                            <input type="text" th:field="*{name}" placeholder="Nhập tên truyện tại đây"
+                                                   class="form-control input-lg" required>
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="d-block font-weight-semibold" for="PriceStory">Giá
+                                                        bán</label>
+                                                    <input type="number" th:field="*{price}"
+                                                           placeholder="Giá đăng bán" class="form-control"
+                                                           id="PriceStory" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="d-block font-weight-semibold" for="quantity">Số
+                                                        lượng</label>
+                                                    <input type="number" class="form-control" placeholder="Số lượng"
+                                                           th:field="*{quantity}" id="quantity" required>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="d-block font-weight-semibold" for="author">Tác
+                                                        giả</label>
+                                                    <input type="text"
+                                                           placeholder="Tác giả" class="form-control"
+                                                           th:field="*{author}" id="author" required>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="d-block font-weight-semibold">Trạng thái
+                                                        truyện</label>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input"
+                                                               name="storystatus" value="0" id="type1">
+                                                        <label class="custom-control-label" for="type1">Còn hàng</label>
+                                                    </div>
+                                                    <div class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" class="custom-control-input"
+                                                               name="storystatus" value="1" id="type2" checked="">
+                                                        <label class="custom-control-label" for="type2">Hết Hàng</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <label class="d-block font-weight-semibold" for="storyDescription">Mô tả
+                                                    truyện</label>
+                                                <textarea style="height: 120px" th:field="*{description}"
+                                                          class="form-control"
+                                                          id="storyDescription"
+                                                          placeholder="Hãy nói gì đó về truyện..."></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-4 col-sm-12">
+                                        <strong style="display: block; text-align: center; font-weight: bold">Thể loại
+                                            truyện</strong>
+                                        <div style="border: 2px solid black; border-radius: 10px; padding: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 200px; overflow-y: auto;">
+                                            <!--duyet qua líst the loai-->
+                                            <div th:each="list : ${session.listcategory}"
+                                                 class="custom-control custom-checkbox">
+                                                <input type="checkbox" th:value="${list.id}" name="categories[]"
+                                                       class="custom-control-input"
+                                                       th:id="'category-checkbox'+${list.id}">
+                                                <label class="custom-control-label"
+                                                       th:for="'category-checkbox'+${list.id}"
+                                                       th:text="${list.name}"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="storyDescription">Story Description</label>
-                                <textarea th:field="*{description}" class="form-control" id="storyDescription" placeholder="Story Description"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="storyPrice">Story Description</label>
-                                <input type="number" th:field="*{price}" class="form-control" id="storyPrice" placeholder="Story Price"></input>
-                            </div>
-                            <div class="form-group">
-                                <label for="storyImage">Story Image URL</label>
-                                <input type="file" th:field="*{image}" class="form-control" id="storyImage">
-                            </div>
-                            <button type="submit" class="cssbuttons-io-button">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill="none" d="M0 0h24v24H0z"></path><path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path></svg>
-                                <span>Add</span>
-                            </button>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <button type="submit" class="cssbuttons-io-button">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+                             height="24">
+                            <path fill="none" d="M0 0h24v24H0z"></path>
+                            <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+                        </svg>
+                        <span>Add</span>
+                    </button>
+                </form>
+
+
             </section>
         </div>
     </div>

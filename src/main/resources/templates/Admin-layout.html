@@ -26,7 +26,18 @@
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->
+<script>
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+        var reader = new FileReader();
 
+        reader.onload = function(e) {
+            document.getElementById('imagePreview').src = e.target.result;
+            document.getElementById('imagePreview').style.display = 'block';
+        }
+
+        reader.readAsDataURL(e.target.files[0]);
+    });
+</script>
 <script th:src="@{/assets/admin/js/jquery.min.js}"></script>
 <script th:src="@{/assets/admin/js/jquery-ui.js}"></script>
 <script th:src="@{/assets/admin/js/bootstrap.min.js}"></script>

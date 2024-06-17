@@ -17,12 +17,14 @@ public class StoryClass {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", unique = true,nullable = false)
+    @Column(name = "name", unique = true)
     private String name;
-    @Column(name = "description")
+    private Double price;
+    private long quantity;
+    private String author;
+    private boolean status;
     private String description;
-    @Column(name = "image")
     private String image;
-    private  Double price;
+    private String category;
 
 }

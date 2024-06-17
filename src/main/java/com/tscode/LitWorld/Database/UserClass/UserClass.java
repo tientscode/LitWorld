@@ -35,7 +35,7 @@ public class UserClass {
     @Column(name="image")
     private String image;
 
-    @Transient  // không lưu trữ trong database
+    @Transient
     private MultipartFile imageFile;
 
     @Column(nullable = false)

@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    var max_length = 20;
-
+    var max_length = 17;
     $(".tree-title").each(function () {
         var text = $(this).text();
+        console.log(text.length);
         if (text.length > max_length) {
             $(this).text(text.substr(0, max_length) + '...');
         }

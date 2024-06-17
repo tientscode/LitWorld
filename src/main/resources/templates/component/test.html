@@ -1,0 +1,125 @@
+<form th:if="${storyid}!=null" class="row" th:action="@{/dashboard/create}"  method="post">
+  <div class="col-md-12">
+
+    <div class="alert alert-danger">
+      - Lưu ý: nếu bạn là tác giả truyện đã có trên LitWorld vui lòng gửi mail đến: <strong>tienit.tscode@gmail.com</strong>
+      để được set là chủ sở hữu truyện và chỉ cần tiếp tục đăng chương.
+    </div>
+    <div class="alert alert-danger">
+      - Lưu ý quan trọng: Nghiêm cấm các thể loại: LÔI, CẤM KỴ, L LUÂN, NP...quá sắc
+    </div>
+
+
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-2 col-sm-4 text-center">
+            <div id="storyCover">
+              <img id="imagePreview" th:src="/images/+${storyid.image}" alt="Image Preview" style="display: none;">
+            </div>
+            <label for="imageUpload" class="upload-btn btn btn-success legitRipple">Chọn Ảnh
+              Bìa</label>
+            <input style="width: 125px" type="file" th:text="${storyid.image}" id="imageUpload" required accept="image/png, image/jpg, image/jpeg">
+            <!--                                        <input th:if="${storyid.name}!=null" style="width: 125px" type="file" th:text="${storyid.name}" required accept="image/png, image/jpg, image/jpeg">-->
+            <p class="text-muted font-italic">Hỗ trợ ảnh có đuôi .jpg, .png, .jpeg. Kích
+              thước &lt;=500kb</p>
+          </div>
+
+          <div class="col-md-6 col-sm-8">
+
+            <div class="form-group">
+              <input type="text" th:="*{name}" placeholder="Nhập tên truyện tại đây"
+                     class="form-control input-lg" required>
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="d-block font-weight-semibold" for="PriceStory">Giá
+                    bán</label>
+                  <input type="number" th:field="*{price}"
+                         placeholder="Giá đăng bán" class="form-control"
+                         id="PriceStory" required>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="d-block font-weight-semibold" for="quantity">Số
+                    lượng</label>
+                  <input type="number" class="form-control" placeholder="Số lượng"
+                         th:field="*{quantity}" id="quantity" required>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="d-block font-weight-semibold" for="author">Tác giả</label>
+                  <input type="text"
+                         placeholder="Tác giả" class="form-control"
+                         th:field="*{author}" id="author" required>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="d-block font-weight-semibold">Trạng thái
+                    truyện</label>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input"
+                           name="storystatus" value="0" id="type1">
+                    <label class="custom-control-label" for="type1">Còn hàng</label>
+                  </div>
+                  <div class="custom-control custom-radio custom-control-inline">
+                    <input type="radio" class="custom-control-input"
+                           name="storystatus" value="1" id="type2" checked="">
+                    <label class="custom-control-label" for="type2">Hết Hàng</label>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="form-group">
+                <label class="d-block font-weight-semibold" for="storyDescription">Mô tả
+                  truyện</label>
+                <textarea style="height: 120px" th:field="*{description}" class="form-control"
+                          id="storyDescription"
+                          placeholder="Hãy nói gì đó về truyện..."></textarea>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-4 col-sm-12">
+            <strong style="display: block; text-align: center; font-weight: bold">Thể loại truyện</strong>
+            <div  style="border: 2px solid black; border-radius: 10px; padding: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); height: 200px; overflow-y: auto;">
+              <!--duyet qua líst the loai-->
+              <div  th:each="list : ${session.listcategory}" class="custom-control custom-checkbox">
+                <input type="checkbox" th:value="${list.id}" name="categories[]"
+                       class="custom-control-input" th:id="'category-checkbox'+${list.id}" >
+                <label class="custom-control-label" th:for="'category-checkbox'+${list.id}" th:text="${list.name}"></label>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="cssbuttons-io-button">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24"
+         height="24">
+      <path fill="none" d="M0 0h24v24H0z"></path>
+      <path fill="currentColor" d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"></path>
+    </svg>
+    <span>Add</span>
+  </button >
+</form>

@@ -41,10 +41,13 @@ public class HomeAdminController {
     @GetMapping("/user")
     public String allUser(Model model, HttpServletRequest request) {
         List<UserClass> users = querryUser.getClassUsers();
+
 //        model.addAttribute("users", users);
-        System.out.println(users.get(0).getName());
+//        System.out.println(users.get(0).getName());
         return "component/AdminComponets/User";
     }
+
+
 
 
     @RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -55,7 +58,10 @@ public class HomeAdminController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String submitStoryForm(@ModelAttribute("storyClass") StoryClass storyClass, HttpServletRequest request) {
+    public String submitStoryForm(@RequestParam("categories[]") List<String> categories,@RequestParam("storystatus") String storystatus, @ModelAttribute("storyClass") StoryClass storyClass, HttpServletRequest request) {
+        boolean status ="1".equals(storystatus);
+        storyClass.setCategory(String.valueOf(categories));
+        storyClass.setStatus(status);
         storyRepository.save(storyClass);
         return "redirect:/dashboard";
     }
@@ -64,6 +70,20 @@ public class HomeAdminController {
     public String deleteidstory(@PathVariable("id") Long id) {
         storyRepository.deleteById(id);
         return "redirect:/dashboard";
+    }
+
+    @RequestMapping("/user/delete/{id}")
+    public String deleteiduser(@PathVariable("id") Integer id) {
+        System.out.println("id cần xóa là" + id);
+        userRepository.deleteById(id);
+        return "redirect:/dashboard/user";
+    }
+
+    @RequestMapping("/story/edit/{id}")
+    public String editstory(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("storyid", storyRepository.findById(id));
+        storyRepository.save(id);
+        return "redirect:/dashboard/create";
     }
 
     @RequestMapping("/user/{id}")

@@ -20,7 +20,6 @@
                     <button type="submit">SEND EMAIL <span></span> </button>
                 </center>
             </form>
-6066
             <form  th:if="${session.otp}!=null" action="/sendotp" method="post">
                 <div style="text-align: center" class="user-box">
                     <input style="  width: 2.5em; height: 2.5em;" type="password"  name="otp1" maxlength="1">

@@ -48,7 +48,7 @@ public class HomeClienController {
         System.out.println("nó đây nè" + userCart);
 
         List<StoryClass> stories = new ArrayList<>(); // Tạo một danh sách mới để lưu các truyện
-        double totalPrice = 0.0;
+        int totalPrice = 0;
         for (String id : userCart) {
             Long storyId = Long.parseLong(id);
             StoryClass story = storyRepository.findById(storyId).orElse(null);
@@ -59,6 +59,7 @@ public class HomeClienController {
             }
         }
         session.set("lists", stories); // Lưu danh sách truyện vào session
+        System.out.println(stories);
         session.set("totalPrice", totalPrice);
         return "component/ClienComponets/tutruyen";
     }
@@ -66,11 +67,13 @@ public class HomeClienController {
 
     @RequestMapping("/home/gio-hang")
     public String giohang() {
+
         return "component/ClienComponets/tutruyen";
     }
 
     @RequestMapping("/home/user")
     public String user() {
+
         return "component/ClienComponets/User";
     }
 
@@ -87,6 +90,14 @@ public class HomeClienController {
         return "component/ClienComponets/User";
     }
 
+    @RequestMapping("/{storyName}")
+    public String getStory(@PathVariable("storyName") String storyName, Model model) {
+        System.out.println(storyName);
+        StoryClass story = storyRepository.getStoryByName(storyName.replace(" ", "-"));
+        System.out.println(story);
+        model.addAttribute("story", story);
+        return "component/ClienComponets/list";
+    }
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
@@ -101,4 +112,8 @@ public class HomeClienController {
         List<CategoryClass> list = categoryRepository.findAll();
         model.addAttribute("Categorylist", list);
     }
+
+//    public String createUrl(String name) {
+//        return name.replace(" ", "-");
+//    }
 }

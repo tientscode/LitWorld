@@ -7,4 +7,8 @@ public interface StoryRepository extends JpaRepository<StoryClass, Long> {
     boolean existsByname(String name);
    StoryClass deleteById(long id);
    StoryClass findById(long id);
+
+    void save(Integer id);
+
+    StoryClass getStoryByName(String replace);
 }

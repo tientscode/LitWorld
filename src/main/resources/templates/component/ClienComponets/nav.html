@@ -4,6 +4,7 @@
         .dropdown-menu {
             display: none;
         }
+
         .nav-item:hover .dropdown-menu {
             display: block;
         }
@@ -18,23 +19,25 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="/home">Danh sách</a></li>
-<!--                <li class="nav-item"><a class="nav-link" href="#">Thể loại</a></li>-->
+                <!--                <li class="nav-item"><a class="nav-link" href="#">Thể loại</a></li>-->
 
                 <style>
                     .dropdown-menu-a {
                         column-count: 2;
+                        height: 300px ;
+                        overflow: auto;
                     }
                 </style>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="theLoaiDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Thể loại</a>
+                    <a class="nav-link dropdown-toggle" href="#" id="theLoaiDropdown" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">Thể loại</a>
                     <div id="dropdownMenu" class="dropdown-menu dropdown-menu-a" aria-labelledby="theLoaiDropdown">
                         <div th:each="Category : ${Categorylist}" class="dropdown-item">
                             <a href="#" th:text="${Category.name}"></a>
                         </div>
                     </div>
                 </li>
-
 
 
                 <li class="nav-item"><a class="nav-link" href="#">Tùy chọn</a></li>
@@ -57,11 +60,12 @@
             </a>
 
 
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${session.user != null}" >
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink" th:if="${session.user != null}">
                 <a class="dropdown-item" href="/home/user">Tài Khoản</a>
                 <a class="dropdown-item" href="/home/gio-hang">Giỏ Hàng
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">99+</span>
-
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+        <span th:if="${session.lists != null}" th:text="${#lists.size(session.lists)}">99+</span>
+    </span>
                 </a>
                 <a class="dropdown-item" href="/logout">Sign out</a>
             </div>

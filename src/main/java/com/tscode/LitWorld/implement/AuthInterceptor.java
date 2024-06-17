@@ -1,6 +1,8 @@
 package com.tscode.LitWorld.implement;
 
+import com.tscode.LitWorld.Database.CategoryClass.CategoryRepository;
 import com.tscode.LitWorld.Database.RoleClass.RoleClass;
+import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
 import com.tscode.LitWorld.Service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,10 +19,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     SessionService session;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
         UserClass user = session.get("user");
+        session.set("listcategory",categoryRepository.findAll());
+
         String error = "";
         if (user == null) {
             System.out.println("lỗi ở đây 26 authinterceptor");
@@ -32,7 +39,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             Set<String> roles = user.getRoles().stream()
                     .map(RoleClass::getName)
                     .collect(Collectors.toSet());
-            System.out.println("User roles saved in session: " + ((UserClass)session.get("user")).getRoles());
+            System.out.println("User roles saved in session: " + ((UserClass) session.get("user")).getRoles());
             session.set("isAdmin", roles.contains("Role_Admin"));
             if (roles.contains("Role_User") && uri.startsWith("/dashboard")) {
                 System.out.println("lỗi ở authinterceptor 38");
@@ -44,7 +51,6 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         return true;
     }
-
 
 
 }
