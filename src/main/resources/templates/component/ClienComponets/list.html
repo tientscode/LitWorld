@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" xmlns:layout="http://www.thymeleaf.org"
-      layout:decorate="~{User-layout}" xmlns:sec>
+      layout:decorate="~{User-layout}" xmlns:sec xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -15,19 +15,58 @@
     <div layout:fragment="content">
         <div th:replace="/component/ClienComponets/hottop :: top"></div>
         <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
-        <div class="row">
-            <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${liststory}">
+
+<!--        <div class="row" th:if="${liststorycurren}==null">-->
+<!--            <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${session.liststory}">-->
+<!--                <div class="truyen-item">-->
+<!--                    <img th:src="'/images/' + ${story.image}" alt="image" href="${story.name}">-->
+<!--                    <div class="tree-title" th:text="${story.name}"></div>-->
+<!--                </div>-->
+<!--                <button class="btn-outline-info mb-3" style="background-color: #f57224" th:attr="data-id=${story.id}">-->
+<!--                    Thêm-->
+<!--                    vào giỏ hàng-->
+<!--                </button>-->
+<!--                &lt;!&ndash; <button>Chi Tiết</button> &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row" >
+            <div class="col-xs-4 col-sm-3 col-md-2" th:each="storyidcurren : ${liststorycurren}">
                 <div class="truyen-item">
-                    <a th:href="'/' + ${story.name}">
-                        <img th:src="'/images/' + ${story.image}" alt="image">
-                    </a>
-                    <div class="tree-title" th:text="${story.name}"></div>
+                    <img th:src="'/images/' + ${storyidcurren.image}" alt="image" href="${story.name}">
+                    <div class="tree-title" th:text="${storyidcurren.name}"></div>
                 </div>
-                <button class="btn-outline-info mb-3" style="background-color: #f57224" th:attr="data-id=${story.id}">Thêm
+                <button class="btn-outline-info mb-3" style="background-color: #f57224"
+                        th:attr="data-id=${storyidcurren.id}">
+                    Thêm
                     vào giỏ hàng
                 </button>
+                <!-- <button>Chi Tiết</button> -->
             </div>
         </div>
+
+        <style>
+            .btn-space {
+                margin-right: 10px;
+            }
+        </style>
+
+        <div class="row justify-content-center">
+            <div>
+                <button class="btn-space"><a th:href="@{/home-page/{id}(id=1)}">First</a></button>
+                <button  class="btn-space"><a th:href="@{/home-page/{id}(id=${currentPage})}">Prev</a></button>
+                <span class="btn-space" th:text="${currentPage+1}"></span>
+                <button class="btn-space"><a th:href="@{/home-page/{id}(id=${currentPage+2})}">Next</a></button>
+                <button class="btn-space"><a th:href="@{/home-page/{id}(id=${totalPages})}">Last</a></button>
+            </div>
+<!--            <form th:href="@{/home-page}" method="post">-->
+<!--                <input type="number" name="id" min="1" th:max="${totalPages+1}" placeholder="Go to page">-->
+<!--                <button type="submit">Go</button>-->
+<!--            </form>-->
+        </div>
+
+
+
         <script>
             document.addEventListener('DOMContentLoaded', function () {
                 var buttons = document.querySelectorAll('.btn-outline-info');

@@ -22,11 +22,15 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    StoryRepository storyRepository;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String uri = request.getRequestURI();
         UserClass user = session.get("user");
-        session.set("listcategory",categoryRepository.findAll());
+        session.set("listcategory", categoryRepository.findAll());
+        System.out.println();
 
         String error = "";
         if (user == null) {

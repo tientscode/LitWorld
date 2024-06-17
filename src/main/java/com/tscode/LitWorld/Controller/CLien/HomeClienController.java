@@ -8,6 +8,7 @@ import com.tscode.LitWorld.Database.StoryClass.StoryRepository;
 import com.tscode.LitWorld.Database.UserClass.QuerryUser;
 import com.tscode.LitWorld.Database.UserClass.UserClass;
 import com.tscode.LitWorld.Database.UserClass.UserRepository;
+import com.tscode.LitWorld.Service.PageService;
 import com.tscode.LitWorld.Service.SessionService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,20 +29,55 @@ public class HomeClienController {
     @Autowired
     SessionService session;
     @Autowired
-    QuerryStory querryStory;
-    @Autowired
     CategoryRepository categoryRepository;
     @Autowired
     StoryRepository storyRepository;
     @Autowired
-    QuerryUser querryUser;
-    @Autowired
     UserRepository userRepository;
+    @Autowired
+    PageService pageService;
+    @Autowired
+    QuerryStory querryStory;
+
 
     @RequestMapping("/home")
     public String home(Model model, HttpServletRequest request) {
-        return "component/ClienComponets/list";
+        List<CategoryClass> listStory = session.get("liststory");
+        int lengthList = (listStory != null) ? listStory.size() : 0;
+        System.out.println("Độ dài của danh sách: " + lengthList);
+        int totalPages = pageService.calculateTotalPages(lengthList, 6);
+        System.out.println("Tổng số trang là: " + totalPages);
+
+
+        model.addAttribute("currentPage", 0);
+        model.addAttribute("totalPages", totalPages);
+//        model.addAttribute("stories", stories);
+
+        return "redirect:home-page/1";
     }
+
+
+    @RequestMapping("/home-page/{id}")
+    public String homePage(@PathVariable int id, Model model, HttpServletRequest request) {
+        int idcurren = id - 1;
+        List<CategoryClass> listStory = session.get("liststory");
+        int lengthList = (listStory != null) ? listStory.size() : 0;
+        System.out.println("Độ dài của danh sách: " + lengthList);
+        int totalPages = pageService.calculateTotalPages(lengthList, 6);
+        System.out.println("Tổng số trang là: " + totalPages);
+        List<StoryClass> stories = querryStory.getStories(idcurren, 6);
+        if (id > totalPages) {
+            return "Error";
+        } else {
+            model.addAttribute("currentPage", idcurren);
+            model.addAttribute("totalPages", totalPages);
+            model.addAttribute("liststorycurren", stories);
+            System.err.println("này là gì"+stories);
+            return "component/ClienComponets/list";
+        }
+
+    }
+
 
     @PostMapping("/home/gio-hang")
     public String giohanga(@RequestBody List<String> userCart, Model model) {
@@ -84,26 +120,23 @@ public class HomeClienController {
         }
         String fileName = StringUtils.cleanPath(user.getImageFile().getOriginalFilename());
         user.setImage(fileName);
-        System.out.println("bị lỗi lol gif đaay"+user);
+        System.out.println("bị lỗi lol gif đaay" + user);
         userRepository.save(user);
-        session.set("user",user);
+        session.set("user", user);
         return "component/ClienComponets/User";
     }
 
     @RequestMapping("/{storyName}")
     public String getStory(@PathVariable("storyName") String storyName, Model model) {
-        System.out.println(storyName);
-        StoryClass story = storyRepository.getStoryByName(storyName.replace(" ", "-"));
-        System.out.println(story);
-        model.addAttribute("story", story);
+        model.addAttribute("story", storyName);
         return "component/ClienComponets/list";
     }
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
-        // Thêm danh sách câu chuyện vào model
-        List<StoryClass> list = querryStory.getlistStory();
-        model.addAttribute("liststory", list);
+
+
+        session.set("liststory", storyRepository.findAll());
     }
 
 
