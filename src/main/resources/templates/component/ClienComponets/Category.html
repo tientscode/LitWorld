@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.thymeleaf.org"
+      layout:decorate="~{User-layout}" xmlns:sec xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <style>
+    .cover {
+            max-height: 100%;
+            max-width: 113%;
+            border: 1px solid #420303;
+        }
+    img{
+        width: 180px; !important;
+        height: 80px;!important;
+    }
+    </style>
+    <div class="row" itemtype="https://schema.org/Book">
+        <div class="col-9">
+            <div class="row mb-4" th:each="list :${storyNames}">
+                <div class="col-3">
+                    <div><img
+                            th:src="'/images/' + ${list.image}"
+                            class="cover" th:alt="${list.name}"></div>
+                </div>
+                <div class="col-7">
+                    <div><span class="glyphicon glyphicon-book"></span>
+                        <h3 class="truyen-title" itemprop="name"><a href="https://truyenfull.vn/truyen-ky-vo-ba/" th:title="${list.name}" itemprop="url" th:text="'📖'+${list.name}"></a></h3>
+                        <span class="author" itemprop="author" th:text="'✍️ '+${list.author}"></span></div>
+                </div>
+                <div class="col-2">
+                    <div><a href="https://truyenfull.vn/truyen-ky-vo-ba/chuong-70/"><span class="chapter-text" th:text="'Giá: '+${list.price}"></span></a></div>
+                    <button class="btn-outline-info mb-3" style="background-color: #f57224" th:attr="data-id=${list.id}">Mua ngay</button>
+                </div>
+                <hr>
+            </div>
+        </div>
+        <div class="col-3" style="background-color: #ECF0F1">
+            <div class="panel-body"><p>Truyện tiên hiệp thường kể về quá trình tu luyện và khám phá thế giới tu sĩ
+                thần tiên đầy bí ẩn của nhân vật chính.</p>
+                <p>Trong truyện tiên hiệp thường chia ra những cấp bậc tu luyện trước khi thành tiên như sau:</p>
+                <ul>
+                    <li>Luyện Khí</li>
+                    <li>Khai Quang</li>
+                    <li>Trúc Cơ</li>
+                    <li>Ích Cốc</li>
+                    <li>Kết Đan (Kim Đan)</li>
+                    <li>Nguyên Anh</li>
+                    <li>Hóa Thần (Phân Thần)</li>
+                    <li>Hợp Thể</li>
+                    <li>Độ Kiếp</li>
+                    <li>Đại Thừa</li>
+                </ul>
+                <p>Sau khi thành tiên thì có những cấp bậc:</p>
+                <ul>
+                    <li>Tán Tiên</li>
+                    <li>Tiên Nhân</li>
+                    <li>Địa Tiên</li>
+                    <li>Thiên Tiên</li>
+                    <li>Thượng Tiên</li>
+                    <li>Kim Tiên</li>
+                    <li>Huyền Tiên</li>
+                    <li>Đại La Kim Tiên</li>
+                    <li>Tiên Vương</li>
+                    <li>Tiên Tôn</li>
+                    <li>Tiên Đế</li>
+                </ul>
+                <p>Ngoài ra còn có những cấp độ ngoài tiên như Bán Thánh, Vô Cực Thánh Nhân,.. dựa theo trí tưởng
+                    tượng của tác giả.</p></div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var buttons = document.querySelectorAll('.btn-outline-info');
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var storyId = this.getAttribute('data-id');
+                    console.log('Story ID:', storyId);
+
+                    var userCart = JSON.parse(localStorage.getItem('userCart')) || [];
+
+                    if (!userCart.includes(storyId)) {
+                        userCart.push(storyId);
+                        localStorage.setItem('userCart', JSON.stringify(userCart));
+                        alert('Sản phẩm đã được thêm vào giỏ hàng.');
+                    } else {
+                        alert('Sản phẩm đã có trong giỏ hàng.');
+                    }
+                });
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var userCart = JSON.parse(localStorage.getItem('userCart')) || [];
+            fetch('/home/gio-hang', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userCart)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        })
+    </script>
+</div>
+</body>
+</html>

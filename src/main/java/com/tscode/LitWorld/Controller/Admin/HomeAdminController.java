@@ -12,7 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/dashboard")
@@ -58,10 +59,8 @@ public class HomeAdminController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String submitStoryForm(@RequestParam("categories[]") List<String> categories,@RequestParam("storystatus") String storystatus, @ModelAttribute("storyClass") StoryClass storyClass, HttpServletRequest request) {
-        boolean status ="1".equals(storystatus);
+    public String submitStoryForm(@RequestParam("categories[]") List<String> categories, @ModelAttribute("storyClass") StoryClass storyClass, HttpServletRequest request) {
         storyClass.setCategory(String.valueOf(categories));
-        storyClass.setStatus(status);
         storyRepository.save(storyClass);
         return "redirect:/dashboard";
     }
@@ -72,12 +71,25 @@ public class HomeAdminController {
         return "redirect:/dashboard";
     }
 
+
+    //caajp nhat
+    @RequestMapping("/edit/story/{id}")
+    public String editstory(@PathVariable("id") Long id, Model model) {
+        StoryClass storyClass = storyRepository.findById(id).get();
+        model.addAttribute("storyClass",storyClass);
+        System.err.println(storyClass );
+        return "component/AdminComponets/CreateStory";
+    }
+
+
+
     @RequestMapping("/user/delete/{id}")
     public String deleteiduser(@PathVariable("id") Integer id) {
         System.out.println("id cần xóa là" + id);
         userRepository.deleteById(id);
         return "redirect:/dashboard/user";
     }
+
 
     @RequestMapping("/story/edit/{id}")
     public String editstory(@PathVariable("id") Integer id, Model model) {

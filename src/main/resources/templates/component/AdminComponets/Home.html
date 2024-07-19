@@ -48,7 +48,7 @@
                         </td>
                         <td th:text="${story.price}"></td>
                         <td>
-                            <button class="btn-custom">Edit</button>
+                            <a th:href="@{/dashboard/edit/story/{id}(id=${story.id})}">edit</a>
                             <a th:href="@{/dashboard/edit/delete/{id}(id=${story.id})}">Delete</a>
                         </td>
                     </tr>

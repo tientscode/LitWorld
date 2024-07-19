@@ -2,9 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="">
 <head th:replace="/component/ClienComponets/head :: head">
 </head>
+<style>
+    html, body {
+        height: 100%;
+    }
+
+    .content {
+        min-height: calc(100vh - 100px);
+        padding: 20px;
+
+    }
+</style>
 <body>
 <div th:replace="/component/ClienComponets/nav :: nav"></div>
-<div class="container mt-4">
+
+<div class="container mt-4 content">
     <section layout:fragment="content"></section>
 </div>
 
@@ -27,6 +39,7 @@
 
         reader.readAsDataURL(e.target.files[0]);
     });
+
 </script>
 </body>
 </html>

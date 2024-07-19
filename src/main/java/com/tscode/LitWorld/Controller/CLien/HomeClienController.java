@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -53,8 +54,21 @@ public class HomeClienController {
         model.addAttribute("totalPages", totalPages);
 //        model.addAttribute("stories", stories);
 
-        return "redirect:home-page/1";
+
+
+
+
+
+        return "component/ClienComponets/list";
     }
+
+
+    @RequestMapping("/home/test")
+    public String test(Model model, HttpServletRequest request) {
+        session.remove("list");
+        return "redirect:/home";
+    }
+
 
 
     @RequestMapping("/home-page/{id}")
@@ -134,11 +148,40 @@ public class HomeClienController {
 
     @ModelAttribute
     public void addAttributes(Model model, HttpServletRequest request) {
-
-
         session.set("liststory", storyRepository.findAll());
     }
 
+
+    @RequestMapping("/the-loai/{name}")
+    public String getTheLoai(@PathVariable("name") String name, Model model) {
+
+        List<StoryClass> storyNames = new ArrayList<>();
+
+        CategoryClass id  = categoryRepository.findByName(name);
+        String idcategory = String.valueOf(id.getId());
+        System.out.println("chưa hiểu"+idcategory);
+        List<StoryClass> stories = session.get("liststory");
+
+        if (stories != null) {
+            for (StoryClass story : stories) {
+                if (story.getCategory() != null) {
+                    System.err.println("category của từng truyện: "+story.getCategory());
+                    String category = story.getCategory().replace("[","").replace("]","");
+                    System.out.println("mảng đã bỏ dấu"+category);
+                    List<String> categories = Arrays.asList(category.split(","));
+                    if(categories.stream().anyMatch(str -> str.trim().equals(idcategory))) {
+                        storyNames.add(story);
+                    }
+                }
+                else {
+                    System.err.println("lần 1");
+                }
+            }
+        }
+        model.addAttribute("storyNames", storyNames);
+        System.err.println(storyNames);
+        return "component/ClienComponets/Category";
+    }
 
     @ModelAttribute
     public void addAttributes(Model model) {

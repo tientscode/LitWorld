@@ -3,6 +3,10 @@ package com.tscode.LitWorld.Database.StoryClass;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.sql.Timestamp;
+
 
 @Data
 @Getter
@@ -26,5 +30,7 @@ public class StoryClass {
     private String description;
     private String image;
     private String category;
+    @CreationTimestamp
+    private Timestamp createdAt;
 
 }

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var max_length = 17;
+    var max_length = 14;
     $(".tree-title").each(function () {
         var text = $(this).text();
         console.log(text.length);

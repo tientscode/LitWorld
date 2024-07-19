@@ -33,9 +33,11 @@
                     <a class="nav-link dropdown-toggle" href="#" id="theLoaiDropdown" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false">Thể loại</a>
                     <div id="dropdownMenu" class="dropdown-menu dropdown-menu-a" aria-labelledby="theLoaiDropdown">
+
                         <div th:each="Category : ${Categorylist}" class="dropdown-item">
-                            <a href="#" th:text="${Category.name}"></a>
+                            <a th:href="@{/the-loai/{name}(name=${Category.name})}" th:text="${Category.name}"></a>
                         </div>
+
                     </div>
                 </li>
 

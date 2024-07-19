@@ -2,6 +2,7 @@ package com.tscode.LitWorld.config;
 
 import com.tscode.LitWorld.implement.AdminInterceptor;
 import com.tscode.LitWorld.implement.AuthInterceptor;
+import com.tscode.LitWorld.implement.ClienInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -14,6 +15,8 @@ public class InterConfig implements WebMvcConfigurer {
     AuthInterceptor authInterceptor;
     @Autowired
     AdminInterceptor adminInterceptor;
+    @Autowired
+    ClienInterceptor clienInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -22,6 +25,8 @@ public class InterConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/static/*");
         registry.addInterceptor(adminInterceptor)
                 .addPathPatterns("/dashboard/**");
+        registry.addInterceptor(clienInterceptor)
+                .addPathPatterns("/home","/hom-page/**");
 
 
     }

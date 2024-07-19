@@ -13,24 +13,37 @@
 <body>
 <section>
     <div layout:fragment="content">
-        <div th:replace="/component/ClienComponets/hottop :: top"></div>
+        <h2 class="mb-3">Truyện Hot <i class="fa fa-fire"></i></h2>
+
+        <div class="row d-flex">
+            <div class="col-md-2 col-sm-4 col-6 mb-4" th:each="hotlist : ${session.topStories}">
+                <div class="truyen-item">
+                    <span class="full-label"></span>
+                    <img th:src="'/images/' + ${hotlist.image}"
+                         alt="Thế Giới Hoàn Mỹ">
+                    <div th:text="${hotlist.name}" class="truyen-title"></div>
+                    <div th:text="${hotlist.author}" class="truyen-info"></div>
+                </div>
+            </div>
+        </div>
+
         <h2 class="mb-3">Truyện Đã Hoàn Thành</h2>
 
-<!--        <div class="row" th:if="${liststorycurren}==null">-->
-<!--            <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${session.liststory}">-->
-<!--                <div class="truyen-item">-->
-<!--                    <img th:src="'/images/' + ${story.image}" alt="image" href="${story.name}">-->
-<!--                    <div class="tree-title" th:text="${story.name}"></div>-->
-<!--                </div>-->
-<!--                <button class="btn-outline-info mb-3" style="background-color: #f57224" th:attr="data-id=${story.id}">-->
-<!--                    Thêm-->
-<!--                    vào giỏ hàng-->
-<!--                </button>-->
-<!--                &lt;!&ndash; <button>Chi Tiết</button> &ndash;&gt;-->
-<!--            </div>-->
-<!--        </div>-->
+        <div class="row" th:if="${liststorycurren}==null">
+            <div class="col-xs-4 col-sm-3 col-md-2" th:each="story : ${session.liststory}">
+                <div class="truyen-item">
+                    <img th:src="'/images/' + ${story.image}" alt="image" href="${story.name}">
+                    <div class="tree-title" th:text="${story.name}"></div>
+                </div>
+                <button class="btn-outline-info mb-3" style="background-color: #f57224" th:attr="data-id=${story.id}">
+                    Thêm
+                    vào giỏ hàng
+                </button>
+                <!-- <button>Chi Tiết</button> -->
+            </div>
+        </div>
 
-        <div class="row" >
+        <div class="row">
             <div class="col-xs-4 col-sm-3 col-md-2" th:each="storyidcurren : ${liststorycurren}">
                 <div class="truyen-item">
                     <img th:src="'/images/' + ${storyidcurren.image}" alt="image" href="${story.name}">
@@ -54,18 +67,56 @@
         <div class="row justify-content-center">
             <div>
                 <button class="btn-space"><a th:href="@{/home-page/{id}(id=1)}">First</a></button>
-                <button  class="btn-space"><a th:href="@{/home-page/{id}(id=${currentPage})}">Prev</a></button>
+                <button class="btn-space"><a th:href="@{/home-page/{id}(id=${currentPage})}">Prev</a></button>
                 <span class="btn-space" th:text="${currentPage+1}"></span>
                 <button class="btn-space"><a th:href="@{/home-page/{id}(id=${currentPage+2})}">Next</a></button>
                 <button class="btn-space"><a th:href="@{/home-page/{id}(id=${totalPages})}">Last</a></button>
             </div>
-<!--            <form th:href="@{/home-page}" method="post">-->
-<!--                <input type="number" name="id" min="1" th:max="${totalPages+1}" placeholder="Go to page">-->
-<!--                <button type="submit">Go</button>-->
-<!--            </form>-->
         </div>
 
+        <h2 class="mb-3 mt-4">Truyện Mới cập nhât</h2>
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row" th:each="list :${session.liststory}">
+                    <div class="col-5 border">
+                        <label style="font-size: 15px;" th:text="${list.name}"></label>
+                    </div>
+                    <div class="col-3 border">
+                        <label style="font-size: 15px;" th:text="${list.author}"></label>
+                    </div>
+                    <div class="col-2 border">
+                        <label style="font-size: 15px;" th:text="'Số chương: '+ ${list.quantity}"></label>
+                    </div>
+                    <div class="col-2 border">
+                        <label style="font-size: 15px;">28 phút trước</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                <div class="border border-2 rounded p-3 bg-light shadow-sm h-100">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div th:each="listcategory : ${Categorylist}">
+                                <div th:if="${listcategory.id % 2 == 0}">
+                                    <label th:text="${listcategory.name}"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Hàng thứ hai -->
+                        <div class="col-md-6">
+                            <div th:each="listcategory : ${Categorylist}">
+                                <div th:if="${listcategory.id % 2 != 0}">
+                                    <label th:text="${listcategory.name}"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
+
+
+                </div>
+            </div>
+        </div>
 
         <script>
             document.addEventListener('DOMContentLoaded', function () {
